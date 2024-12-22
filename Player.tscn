@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1re1h1uqyrxs"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_0cvqp"]
+[ext_resource type="CameraAttributesPractical" uid="uid://dqgnxle06r61r" path="res://new_camera_attributes_practical.tres" id="2_jlqid"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mqyye"]
+height = 1.7
+radius = 0.3
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 5
+script = ExtResource("1_0cvqp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_mqyye")
+
+[node name="RotationHelper" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="Camera" type="Camera3D" parent="RotationHelper"]
+attributes = ExtResource("2_jlqid")
+current = true

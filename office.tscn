@@ -1,0 +1,204 @@
+[gd_scene load_steps=22 format=3 uid="uid://xe4dg2xf01ka"]
+
+[ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
+[ext_resource type="PackedScene" uid="uid://c1re1h1uqyrxs" path="res://Player.tscn" id="2_yonry"]
+[ext_resource type="PackedScene" uid="uid://dh6of6oed4u3s" path="res://desk.tscn" id="3_detpd"]
+[ext_resource type="Shader" path="res://ceiling.gdshader" id="3_oiawv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhhop"]
+size = Vector3(0.2, 4, 2.485)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e6fo1"]
+size = Vector3(0.2, 4, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k2inx"]
+size = Vector3(0.2, 4, 5.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w8hi3"]
+size = Vector3(0.2, 4, 4.7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_miclv"]
+size = Vector3(0.2, 4, 5.87)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ho4oj"]
+size = Vector3(0.2, 4, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4ul86"]
+size = Vector3(0.2, 4, 5.26)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_uepr1"]
+
+[sub_resource type="Sky" id="Sky_aih42"]
+sky_material = SubResource("PhysicalSkyMaterial_uepr1")
+
+[sub_resource type="Environment" id="Environment_pbto2"]
+background_mode = 2
+sky = SubResource("Sky_aih42")
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_levels/4 = 1.0
+glow_levels/6 = 1.0
+glow_levels/7 = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0lmh"]
+render_priority = 0
+shader = ExtResource("3_oiawv")
+
+[sub_resource type="BoxMesh" id="BoxMesh_nfoyx"]
+material = SubResource("ShaderMaterial_h0lmh")
+size = Vector3(20, 3, 15)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1syun"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rl0q4"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_1syun")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fekom"]
+normal_enabled = true
+normal_scale = 0.12
+normal_texture = SubResource("NoiseTexture2D_rl0q4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbbpb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea4pj"]
+emission_enabled = true
+emission = Color(0.772549, 0.843137, 1, 1)
+emission_energy_multiplier = 1.88
+
+[node name="Office" type="Node3D"]
+
+[node name="RoomSarah" type="Node" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RoomSarah"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 1.57577, 0.0336249)
+mesh = SubResource("BoxMesh_xhhop")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="RoomSarah"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 1.56507, -3.44837)
+mesh = SubResource("BoxMesh_xhhop")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RoomSarah"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.764, 1.9117, 1.17605)
+mesh = SubResource("BoxMesh_e6fo1")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomSarah"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.764, 1.7174, -4.59185)
+mesh = SubResource("BoxMesh_e6fo1")
+
+[node name="RoomPlayer" type="Node" parent="."]
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomPlayer"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.008, 1.858, 1.2)
+mesh = SubResource("BoxMesh_k2inx")
+skeleton = NodePath("../../RoomSarah")
+
+[node name="Desk" parent="RoomPlayer" instance=ExtResource("3_detpd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0415, 0.810787, 4.49382)
+
+[node name="Camera3D" type="Camera3D" parent="RoomPlayer"]
+transform = Transform3D(0.000331597, 0, -1, 0, 1, 0, 1, 0, 0.000331597, 1.31404, 1.23375, 4.46182)
+
+[node name="RoomMitchellAlex" type="Node" parent="."]
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7, 1.69124, -2.34649)
+mesh = SubResource("BoxMesh_w8hi3")
+skeleton = NodePath("../../RoomSarah")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64196, 1.66748, -1.76379)
+mesh = SubResource("BoxMesh_miclv")
+skeleton = NodePath("../../RoomSarah")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657018, 1.78791, 3.66148)
+mesh = SubResource("BoxMesh_ho4oj")
+skeleton = NodePath("../../RoomSarah")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.965874, 1.75953, -4.6)
+mesh = SubResource("BoxMesh_4ul86")
+skeleton = NodePath("../../RoomSarah")
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835974, 0)
+subdiv = 2
+size = Vector3(21.835, 7.52, 18.885)
+data = ExtResource("1_dof1c")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_pbto2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.988358, 0.0921783, 0.121047, 0.0689072, -0.980503, 0.184028, 0.13565, -0.173545, -0.975439, 0, 0, 0)
+light_color = Color(1, 0.870588, 0.764706, 1)
+light_energy = 2.0
+light_angular_distance = 0.5
+shadow_enabled = true
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 30.0
+
+[node name="geo" type="Node" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="geo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.89418, 0)
+mesh = SubResource("BoxMesh_nfoyx")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="geo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.02456, 0)
+mesh = SubResource("BoxMesh_nfoyx")
+skeleton = NodePath("../..")
+
+[node name="Floor" type="CSGBox3D" parent="geo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+size = Vector3(20, 2, 15)
+material = SubResource("StandardMaterial3D_fekom")
+
+[node name="Ceiling" type="CSGBox3D" parent="geo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+visible = false
+size = Vector3(20, 1, 15)
+material = SubResource("StandardMaterial3D_hbbpb")
+
+[node name="Wall2" type="CSGBox3D" parent="geo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.319, 7.5)
+use_collision = true
+size = Vector3(20, 8, 3)
+
+[node name="Wall3" type="CSGBox3D" parent="geo"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.75158, 1.3185, 0.0907545)
+use_collision = true
+size = Vector3(15, 5.82, 3)
+
+[node name="Wall4" type="CSGBox3D" parent="geo"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10.5596, 1.3, 0.091)
+use_collision = true
+size = Vector3(15, 7, 2)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="geo"]
+use_collision = true
+
+[node name="Wall" type="CSGBox3D" parent="geo/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3185, -7.2462)
+size = Vector3(20, 5, 1)
+
+[node name="Window" type="CSGBox3D" parent="geo/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.738501, 2.69957, -7.30383)
+operation = 2
+size = Vector3(17, 1.4, 1.835)
+
+[node name="Player" parent="." instance=ExtResource("2_yonry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95837, 0.954457, -1.66403)
+
+[node name="lights" type="Node3D" parent="."]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="lights"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 4.39536, 3.09614, 3.73831)
+radius = 0.087
+height = 5.0
+material = SubResource("StandardMaterial3D_ea4pj")
