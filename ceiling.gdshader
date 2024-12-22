@@ -4,8 +4,18 @@ void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
+float circle(vec2 pos) {
+	return length(pos) - 0.50;
+}
+
 void fragment() {
-	// Called for every pixel the material is visible on.
+	float ratio = 15.0 / 30.0;
+	vec2 adjusted_uv = vec2(UV.x, UV.y * ratio);
+	vec2 scaling = fract(adjusted_uv * 40.0);
+	//ALBEDO = vec3(fract(UV.x), fract(UV.y), 0);
+	//float c = circle(adjusted_uv);
+	//ALBEDO = vec3(c);
+	ALBEDO = vec3(scaling, 0.0);
 }
 
 //void light() {

@@ -25,7 +25,6 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	check_near_interactable()
-	check_far_lookable()
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -66,11 +65,7 @@ func check_near_interactable():
 		if safe_highlighted_obj_check(highlighted_obj):
 			highlighted_obj.remove_highlight()
 			highlighted_obj = null
-	
-func check_far_lookable():
-	var result = process_aim(100.0, 0b101)
 
-			
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation_helper.rotate_x(deg_to_rad(event.relative.y * MOUSE_SENSITIVITY * -1))

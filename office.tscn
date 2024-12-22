@@ -1,9 +1,13 @@
-[gd_scene load_steps=22 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=27 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
+[ext_resource type="Script" path="res://office.gd" id="1_osxml"]
 [ext_resource type="PackedScene" uid="uid://c1re1h1uqyrxs" path="res://Player.tscn" id="2_yonry"]
 [ext_resource type="PackedScene" uid="uid://dh6of6oed4u3s" path="res://desk.tscn" id="3_detpd"]
+[ext_resource type="Script" path="res://sit_down.gd" id="3_m4kpa"]
 [ext_resource type="Shader" path="res://ceiling.gdshader" id="3_oiawv"]
+[ext_resource type="PackedScene" uid="uid://bigicmpj3i45r" path="res://chair.tscn" id="5_unb5w"]
+[ext_resource type="PackedScene" uid="uid://6rwgr5vxtsvq" path="res://ui.tscn" id="6_w7hbt"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xhhop"]
 size = Vector3(0.2, 4, 2.485)
@@ -13,6 +17,9 @@ size = Vector3(0.2, 4, 3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_k2inx"]
 size = Vector3(0.2, 4, 5.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ul6uf"]
+size = Vector3(0.86, 1.1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_w8hi3"]
 size = Vector3(0.2, 4, 4.7)
@@ -41,6 +48,7 @@ glow_levels/2 = 1.0
 glow_levels/4 = 1.0
 glow_levels/6 = 1.0
 glow_levels/7 = 1.0
+volumetric_fog_density = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h0lmh"]
 render_priority = 0
@@ -69,6 +77,7 @@ emission = Color(0.772549, 0.843137, 1, 1)
 emission_energy_multiplier = 1.88
 
 [node name="Office" type="Node3D"]
+script = ExtResource("1_osxml")
 
 [node name="RoomSarah" type="Node" parent="."]
 
@@ -98,8 +107,19 @@ skeleton = NodePath("../../RoomSarah")
 [node name="Desk" parent="RoomPlayer" instance=ExtResource("3_detpd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0415, 0.810787, 4.49382)
 
-[node name="Camera3D" type="Camera3D" parent="RoomPlayer"]
+[node name="SittingCamera" type="Camera3D" parent="RoomPlayer"]
 transform = Transform3D(0.000331597, 0, -1, 0, 1, 0, 1, 0, 0.000331597, 1.31404, 1.23375, 4.46182)
+
+[node name="Chair" parent="RoomPlayer" instance=ExtResource("5_unb5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30418, 0.485108, 4.4511)
+
+[node name="SitDown" type="StaticBody3D" parent="RoomPlayer/Chair"]
+collision_layer = 2
+script = ExtResource("3_m4kpa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomPlayer/Chair/SitDown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132285, 0)
+shape = SubResource("BoxShape3D_ul6uf")
 
 [node name="RoomMitchellAlex" type="Node" parent="."]
 
@@ -202,3 +222,5 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 4.3953
 radius = 0.087
 height = 5.0
 material = SubResource("StandardMaterial3D_ea4pj")
+
+[node name="UI" parent="." instance=ExtResource("6_w7hbt")]
