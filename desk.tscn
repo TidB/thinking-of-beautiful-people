@@ -17,6 +17,7 @@ height = 0.8
 size = Vector3(0.07, 0.38, 0.66)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1828"]
+resource_local_to_scene = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_b3jew"]
 material = SubResource("StandardMaterial3D_p1828")
@@ -54,6 +55,8 @@ mesh = SubResource("PlaneMesh_b3jew")
 skeleton = NodePath("../..")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+gui_embed_subwindows = true
 size = Vector2i(1920, 1080)
+render_target_update_mode = 4
 
 [node name="Idle" parent="SubViewport" instance=ExtResource("3_ftpv7")]

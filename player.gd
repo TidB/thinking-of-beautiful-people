@@ -9,6 +9,10 @@ var rotation_helper
 
 var highlighted_obj
 
+var sitting = false
+
+signal forward_event(event)
+
 func safe_highlighted_obj_check(obj):
 	if not is_instance_valid(obj):
 		highlighted_obj = null
@@ -24,23 +28,24 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
-	check_near_interactable()
-	
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if not sitting:
+		check_near_interactable()
+		
+		if not is_on_floor():
+			velocity += get_gravity() * delta
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		if direction:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, SPEED)
 
-	move_and_slide()
+		move_and_slide()
 	
 func process_aim(length, mask):
 	var size = get_viewport().size
@@ -55,7 +60,7 @@ func process_aim(length, mask):
 func check_near_interactable():
 	var result = process_aim(2.0, 0b11)
 	
-	if result and result["collider"] and result["collider"].collision_layer != 0b1:
+	if result and result["collider"] and result["collider"].collision_layer == 0b010:
 		if result["collider"] != highlighted_obj:
 			if highlighted_obj:
 				highlighted_obj.remove_highlight()
@@ -80,4 +85,12 @@ func _input(event):
 		else:
 			pass
 			#get_tree().call_group(Global.DIALOGUE_GROUP, "interact")
+	forward_event.emit(event)
+			
+#func _unhandled_input(event):
+	#print(event)
+		
+func sit():
+	$CollisionShape3D.disabled = true
+	sitting = true
 			

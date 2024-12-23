@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://3cgow4it6v6"]
+
+[ext_resource type="Script" path="res://gui_panel_3d.gd" id="1_sdqmq"]
+[ext_resource type="PackedScene" uid="uid://dr3g3qk72wki0" path="res://idle.tscn" id="2_pxtyh"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ylnmc"]
+size = Vector2(3, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4gk0c"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ke87"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_4gk0c")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8macs"]
+size = Vector3(3, 2, 0.1)
+
+[node name="GuiPanel3d" type="Node3D"]
+process_mode = 3
+script = ExtResource("1_sdqmq")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+gui_embed_subwindows = true
+size = Vector2i(280, 180)
+render_target_update_mode = 4
+
+[node name="GUI" type="Control" parent="SubViewport"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 280.0
+offset_bottom = 180.0
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="SubViewport/GUI"]
+layout_mode = 0
+offset_right = 280.0
+offset_bottom = 180.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/GUI/Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 150.0
+offset_bottom = 170.0
+theme_override_constants/separation = 13
+
+[node name="Label" type="Label" parent="SubViewport/GUI/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="SubViewport/GUI/Panel/VBoxContainer"]
+layout_mode = 2
+text = "BUTTON"
+
+[node name="TextEdit" type="TextEdit" parent="SubViewport/GUI/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="SubViewport/GUI/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport/GUI/Panel"]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 140.0
+offset_right = 150.0
+offset_bottom = 140.0
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/GUI/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VSlider" type="VSlider" parent="SubViewport/GUI/Panel"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 8.0
+
+[node name="OptionButton" type="OptionButton" parent="SubViewport/GUI/Panel"]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 140.0
+offset_right = 150.0
+offset_bottom = 160.0
+
+[node name="Idle" parent="SubViewport" instance=ExtResource("2_pxtyh")]
+
+[node name="Quad" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_ylnmc")
+surface_material_override/0 = SubResource("StandardMaterial3D_1ke87")
+
+[node name="Area3D" type="Area3D" parent="Quad"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Quad/Area3D"]
+shape = SubResource("BoxShape3D_8macs")

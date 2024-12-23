@@ -5,6 +5,8 @@ signal show_hint(text)
 signal hide_hint
 signal switch_camera
 
+var used = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print('cool')
@@ -21,8 +23,13 @@ func remove_highlight():
 	hide_hint.emit()
 	
 func use():
+	if used:
+		return
+		
 	remove_highlight()
 	switch_camera.emit()
+	self.visible = false
+	used = true
 
 func _on_show_hint(text):
 	$HUD/CenterContainer/Hint.text = text
