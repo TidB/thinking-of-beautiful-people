@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr3g3qk72wki0"]
+[gd_scene load_steps=4 format=3 uid="uid://dr3g3qk72wki0"]
 
 [ext_resource type="Script" path="res://idle.gd" id="1_col0w"]
 [ext_resource type="Texture2D" uid="uid://c70v7lti8iwkr" path="res://icon.svg" id="1_i5u10"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aspeu"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="Idle" type="Control"]
 layout_mode = 3
@@ -12,6 +15,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_col0w")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aspeu")
+
+[node name="Counter" type="Label" parent="."]
+layout_mode = 2
+offset_left = 644.0
+offset_top = 202.0
+offset_right = 1270.0
+offset_bottom = 359.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 56
+text = "Stored energy lasts for:
+0 minutes"
+horizontal_alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -24,12 +48,3 @@ grow_vertical = 2
 [node name="TextureRect" type="TextureRect" parent="CenterContainer"]
 layout_mode = 2
 texture = ExtResource("1_i5u10")
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 26.0
-offset_right = 1047.0
-offset_bottom = 534.0
-theme_override_font_sizes/font_size = 366
-text = "COOL"

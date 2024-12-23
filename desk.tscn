@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dh6of6oed4u3s"]
+[gd_scene load_steps=6 format=3 uid="uid://dh6of6oed4u3s"]
 
 [ext_resource type="Script" path="res://desk.gd" id="1_rchqe"]
 [ext_resource type="Material" uid="uid://s4x5pbwl3487" path="res://metal.tres" id="2_10ks0"]
-[ext_resource type="PackedScene" uid="uid://dr3g3qk72wki0" path="res://idle.tscn" id="3_ftpv7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2dou8"]
 size = Vector3(0.7, 0.05, 1.5)
@@ -15,13 +14,6 @@ height = 0.8
 
 [sub_resource type="BoxMesh" id="BoxMesh_agly6"]
 size = Vector3(0.07, 0.38, 0.66)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1828"]
-resource_local_to_scene = true
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_b3jew"]
-material = SubResource("StandardMaterial3D_p1828")
-size = Vector2(0.66, 0.38)
 
 [node name="Desk" type="Node3D"]
 script = ExtResource("1_rchqe")
@@ -48,15 +40,3 @@ mesh = SubResource("CylinderMesh_qncf8")
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16607, 0.319363, 0)
 mesh = SubResource("BoxMesh_agly6")
-
-[node name="ViewportQuad" type="MeshInstance3D" parent="MeshInstance3D6"]
-transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, -0.0380763, -0.00512272, 0)
-mesh = SubResource("PlaneMesh_b3jew")
-skeleton = NodePath("../..")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-gui_embed_subwindows = true
-size = Vector2i(1920, 1080)
-render_target_update_mode = 4
-
-[node name="Idle" parent="SubViewport" instance=ExtResource("3_ftpv7")]

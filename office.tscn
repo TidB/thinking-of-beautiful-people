@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=33 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://sit_down.gd" id="3_m4kpa"]
 [ext_resource type="Shader" path="res://ceiling.gdshader" id="3_oiawv"]
 [ext_resource type="Material" uid="uid://s4x5pbwl3487" path="res://metal.tres" id="3_sixn7"]
-[ext_resource type="PackedScene" uid="uid://dr3g3qk72wki0" path="res://idle.tscn" id="4_8471y"]
 [ext_resource type="PackedScene" uid="uid://bigicmpj3i45r" path="res://chair.tscn" id="5_unb5w"]
 [ext_resource type="PackedScene" uid="uid://6rwgr5vxtsvq" path="res://ui.tscn" id="6_w7hbt"]
 [ext_resource type="PackedScene" uid="uid://3cgow4it6v6" path="res://GUIPanel3D.tscn" id="10_fahc4"]
@@ -33,21 +32,12 @@ height = 0.8
 [sub_resource type="BoxMesh" id="BoxMesh_agly6"]
 size = Vector3(0.07, 0.38, 0.66)
 
-[sub_resource type="QuadMesh" id="QuadMesh_xqo4y"]
-size = Vector2(0.66, 0.38)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_fkydf"]
-viewport_path = NodePath("RoomPlayer/Desk/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ggt5"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_fkydf")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_j0nfv"]
-size = Vector3(0.73, 0.43, 0.08)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_ul6uf"]
 size = Vector3(0.86, 1.1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hikxx"]
+height = 0.664
+radius = 0.3
 
 [sub_resource type="BoxMesh" id="BoxMesh_w8hi3"]
 size = Vector3(0.2, 4, 4.7)
@@ -134,7 +124,6 @@ skeleton = NodePath("../../RoomSarah")
 
 [node name="Desk" type="Node3D" parent="RoomPlayer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0415, 0.810787, 4.49382)
-visible = false
 script = ExtResource("2_jr1nt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RoomPlayer/Desk"]
@@ -160,23 +149,8 @@ mesh = SubResource("CylinderMesh_qncf8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16607, 0.319363, 0)
 mesh = SubResource("BoxMesh_agly6")
 
-[node name="ViewportQuad" type="MeshInstance3D" parent="RoomPlayer/Desk/MeshInstance3D6"]
-transform = Transform3D(-4.37114e-08, 4.37114e-08, -1, 4.37114e-08, 1, 4.37114e-08, 1, -4.37114e-08, -4.37114e-08, -0.0380763, -0.00512266, 0)
-mesh = SubResource("QuadMesh_xqo4y")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_1ggt5")
-
-[node name="Area3D" type="Area3D" parent="RoomPlayer/Desk/MeshInstance3D6/ViewportQuad"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomPlayer/Desk/MeshInstance3D6/ViewportQuad/Area3D"]
-shape = SubResource("BoxShape3D_j0nfv")
-
-[node name="SubViewport" type="SubViewport" parent="RoomPlayer/Desk"]
-gui_embed_subwindows = true
-size = Vector2i(1920, 1080)
-render_target_update_mode = 4
-
-[node name="Idle" parent="RoomPlayer/Desk/SubViewport" instance=ExtResource("4_8471y")]
+[node name="GuiPanel3d" parent="RoomPlayer/Desk/MeshInstance3D6" instance=ExtResource("10_fahc4")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.046721, 0, 0)
 
 [node name="SittingCamera" type="Camera3D" parent="RoomPlayer"]
 transform = Transform3D(0.000331597, 0, -1, 0, 1, 0, 1, 0, 0.000331597, 1.31404, 1.23375, 4.46182)
@@ -196,7 +170,9 @@ disabled = true
 
 [node name="PlayerSITTINGREFERENCE" parent="RoomPlayer" instance=ExtResource("2_yonry")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.31363, 0.482368, 4.46495)
-visible = false
+
+[node name="CollisionShape3D" parent="RoomPlayer/PlayerSITTINGREFERENCE" index="0"]
+shape = SubResource("CylinderShape3D_hikxx")
 
 [node name="RoomMitchellAlex" type="Node" parent="."]
 
@@ -222,7 +198,7 @@ skeleton = NodePath("../../RoomSarah")
 
 [node name="VoxelGI" type="VoxelGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835974, 0)
-subdiv = 2
+visible = false
 size = Vector3(21.835, 7.52, 18.885)
 data = ExtResource("1_dof1c")
 
@@ -291,9 +267,10 @@ size = Vector3(17, 1.4, 1.835)
 
 [node name="Player" parent="." instance=ExtResource("2_yonry")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95837, 0.954457, -1.66403)
+visible = false
 
-[node name="GuiPanel3d" parent="." instance=ExtResource("10_fahc4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77918, 1.30531, -2.33345)
+[node name="Camera" parent="Player/RotationHelper" index="0"]
+current = false
 
 [node name="lights" type="Node3D" parent="."]
 
@@ -306,4 +283,5 @@ material = SubResource("StandardMaterial3D_ea4pj")
 [node name="UI" parent="." instance=ExtResource("6_w7hbt")]
 mouse_filter = 1
 
+[editable path="RoomPlayer/PlayerSITTINGREFERENCE"]
 [editable path="Player"]
