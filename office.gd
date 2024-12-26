@@ -23,6 +23,7 @@ func _ready() -> void:
 	$RoomPlayer/PlayerSITTINGREFERENCE.forward_event.connect(self.forward_event)
 
 	Global.connect("pause", self.pause_unpause)
+	switch_camera()
 
 func pause_unpause(should_pause):
 	if not should_pause:

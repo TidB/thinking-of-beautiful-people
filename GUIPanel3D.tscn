@@ -6,15 +6,17 @@
 [sub_resource type="QuadMesh" id="QuadMesh_ylnmc"]
 size = Vector2(0.66, 0.38)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mi51a"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_jwihd"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ke87"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_mi51a")
+emission_enabled = true
+emission_energy_multiplier = 0.9
+emission_texture = SubResource("ViewportTexture_jwihd")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8macs"]
-size = Vector3(3, 2, 0.1)
+size = Vector3(0.685, 0.4, 0.045)
 
 [node name="GuiPanel3d" type="Node3D"]
 process_mode = 3

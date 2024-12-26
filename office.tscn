@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=40 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bigicmpj3i45r" path="res://chair.tscn" id="5_unb5w"]
 [ext_resource type="PackedScene" uid="uid://6rwgr5vxtsvq" path="res://ui.tscn" id="6_w7hbt"]
 [ext_resource type="PackedScene" uid="uid://3cgow4it6v6" path="res://GUIPanel3D.tscn" id="10_fahc4"]
+[ext_resource type="Script" path="res://light-emergency.gd" id="11_vr7wl"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xhhop"]
 size = Vector3(0.2, 4, 2.485)
@@ -18,7 +19,7 @@ size = Vector3(0.2, 4, 2.485)
 size = Vector3(0.2, 4, 3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_k2inx"]
-size = Vector3(0.2, 4, 5.5)
+size = Vector3(0.2, 4, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2dou8"]
 size = Vector3(0.7, 0.05, 1.5)
@@ -38,6 +39,17 @@ size = Vector3(0.86, 1.1, 1)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hikxx"]
 height = 0.664
 radius = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_awc85"]
+size = Vector3(1.785, 2.5, 0.2)
+
+[sub_resource type="Gradient" id="Gradient_pahya"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r56ow"]
+gradient = SubResource("Gradient_pahya")
+width = 129
+height = 54
 
 [sub_resource type="BoxMesh" id="BoxMesh_w8hi3"]
 size = Vector3(0.2, 4, 4.7)
@@ -67,6 +79,7 @@ glow_levels/4 = 1.0
 glow_levels/6 = 1.0
 glow_levels/7 = 1.0
 volumetric_fog_density = 0.1
+volumetric_fog_temporal_reprojection_amount = 0.99
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h0lmh"]
 render_priority = 0
@@ -94,6 +107,43 @@ emission_enabled = true
 emission = Color(0.772549, 0.843137, 1, 1)
 emission_energy_multiplier = 1.88
 
+[sub_resource type="Animation" id="Animation_quqbv"]
+resource_name = "strobe"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("light-fx/emergency:light_energy")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4.016, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_gergk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("light-fx/emergency:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.016]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8exo4"]
+_data = {
+"RESET": SubResource("Animation_gergk"),
+"strobe": SubResource("Animation_quqbv")
+}
+
 [node name="Office" type="Node3D"]
 script = ExtResource("1_osxml")
 
@@ -118,7 +168,7 @@ mesh = SubResource("BoxMesh_e6fo1")
 [node name="RoomPlayer" type="Node" parent="."]
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomPlayer"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.008, 1.858, 1.2)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.75736, 1.858, 1.2)
 mesh = SubResource("BoxMesh_k2inx")
 skeleton = NodePath("../../RoomSarah")
 
@@ -158,6 +208,7 @@ visible = false
 
 [node name="Chair" parent="RoomPlayer" instance=ExtResource("5_unb5w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30418, 0.485108, 4.4511)
+visible = false
 
 [node name="SitDown" type="StaticBody3D" parent="RoomPlayer/Chair"]
 collision_layer = 2
@@ -166,18 +217,41 @@ script = ExtResource("3_m4kpa")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomPlayer/Chair/SitDown"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132285, 0)
 shape = SubResource("BoxShape3D_ul6uf")
-disabled = true
 
 [node name="PlayerSITTINGREFERENCE" parent="RoomPlayer" instance=ExtResource("2_yonry")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.31363, 0.482368, 4.46495)
+visible = false
 
 [node name="CollisionShape3D" parent="RoomPlayer/PlayerSITTINGREFERENCE" index="0"]
 shape = SubResource("CylinderShape3D_hikxx")
 
+[node name="Door" type="MeshInstance3D" parent="RoomPlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.21399, 1.24046, 1.21273)
+visible = false
+mesh = SubResource("BoxMesh_awc85")
+
+[node name="Bubbles" type="Node3D" parent="RoomPlayer"]
+transform = Transform3D(0.69694, 0, -0.71713, 0, 1, 0, 0.71713, 0, 0.69694, 4.07293, 1.38032, 1.59205)
+
+[node name="Sarah" type="Label3D" parent="RoomPlayer/Bubbles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.608053, 0)
+text = "Sarah Text"
+
+[node name="Alex" type="Label3D" parent="RoomPlayer/Bubbles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.552955, 0)
+text = "Alex Text"
+
+[node name="Sprite3D" type="Sprite3D" parent="RoomPlayer/Bubbles"]
+texture = SubResource("GradientTexture2D_r56ow")
+
+[node name="Mitchell" type="Label3D" parent="RoomPlayer/Bubbles/Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000774384, 0, 0.0112729)
+text = "Mitchell Text"
+
 [node name="RoomMitchellAlex" type="Node" parent="."]
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomMitchellAlex"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7, 1.69124, -2.34649)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2202, 1.69124, -2.34649)
 mesh = SubResource("BoxMesh_w8hi3")
 skeleton = NodePath("../../RoomSarah")
 
@@ -198,7 +272,6 @@ skeleton = NodePath("../../RoomSarah")
 
 [node name="VoxelGI" type="VoxelGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835974, 0)
-visible = false
 size = Vector3(21.835, 7.52, 18.885)
 data = ExtResource("1_dof1c")
 
@@ -206,7 +279,8 @@ data = ExtResource("1_dof1c")
 environment = SubResource("Environment_pbto2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.988358, 0.0921783, 0.121047, 0.0689072, -0.980503, 0.184028, 0.13565, -0.173545, -0.975439, 0, 0, 0)
+transform = Transform3D(0.988358, 0.0921785, 0.121046, -0.010344, -0.753031, 0.657903, 0.151796, -0.651496, -0.743311, 4.37225, 0, 0)
+visible = false
 light_color = Color(1, 0.870588, 0.764706, 1)
 light_energy = 2.0
 light_angular_distance = 0.5
@@ -238,11 +312,6 @@ visible = false
 size = Vector3(20, 1, 15)
 material = SubResource("StandardMaterial3D_hbbpb")
 
-[node name="Wall2" type="CSGBox3D" parent="geo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.319, 7.5)
-use_collision = true
-size = Vector3(20, 8, 3)
-
 [node name="Wall3" type="CSGBox3D" parent="geo"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.75158, 1.3185, 0.0907545)
 use_collision = true
@@ -265,12 +334,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.738501, 2.69957, -7.30383)
 operation = 2
 size = Vector3(17, 1.4, 1.835)
 
+[node name="Wall2" type="CSGBox3D" parent="geo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.319, 7.5)
+use_collision = true
+size = Vector3(20, 8, 3)
+
 [node name="Player" parent="." instance=ExtResource("2_yonry")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95837, 0.954457, -1.66403)
-visible = false
-
-[node name="Camera" parent="Player/RotationHelper" index="0"]
-current = false
 
 [node name="lights" type="Node3D" parent="."]
 
@@ -282,6 +352,61 @@ material = SubResource("StandardMaterial3D_ea4pj")
 
 [node name="UI" parent="." instance=ExtResource("6_w7hbt")]
 mouse_filter = 1
+
+[node name="light-fx" type="Node" parent="."]
+
+[node name="emergency" type="SpotLight3D" parent="light-fx"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.04955, 1.95417, -9.79014)
+visible = false
+light_color = Color(0, 0.313568, 1, 1)
+light_energy = 4.016
+light_indirect_energy = 0.246
+shadow_enabled = true
+spot_range = 21.979
+spot_attenuation = -1.0
+spot_angle = 29.92
+script = ExtResource("11_vr7wl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="light-fx/emergency"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_8exo4")
+}
+speed_scale = 4.0
+
+[node name="explosion" type="SpotLight3D" parent="light-fx"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.68557, 2.69139, -10.4697)
+visible = false
+light_energy = 10.0
+spot_range = 131.015
+spot_attenuation = 0.02
+
+[node name="flashlights" type="Node" parent="light-fx"]
+
+[node name="flashlight" type="SpotLight3D" parent="light-fx/flashlights"]
+transform = Transform3D(-0.947963, 0, -0.31838, 0, 1, 0, 0.31838, 0, -0.947963, 4.39801, 0.864589, 0)
+visible = false
+light_energy = 2.0
+light_volumetric_fog_energy = 10.0
+spot_range = 13.874
+spot_attenuation = 0.02
+spot_angle = 5.0
+
+[node name="flashlight2" type="SpotLight3D" parent="light-fx/flashlights"]
+transform = Transform3D(-0.973107, 0, 0.230355, -0.0546975, 0.9714, -0.231063, -0.223767, -0.237449, -0.945276, 4.39801, 0.864589, 0)
+visible = false
+light_energy = 2.0
+light_volumetric_fog_energy = 10.0
+spot_range = 13.874
+spot_attenuation = 0.02
+spot_angle = 5.0
+
+[node name="fire" type="OmniLight3D" parent="light-fx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.90061, 1.18775, -5.54539)
+light_color = Color(1, 0.759283, 0.484079, 1)
+shadow_enabled = true
+omni_range = 10.75
+omni_attenuation = 0.387
 
 [editable path="RoomPlayer/PlayerSITTINGREFERENCE"]
 [editable path="Player"]

@@ -25,6 +25,7 @@ layout_mode = 2
 [node name="Crosshair" type="ColorRect" parent="HUD/CenterContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
+color = Color(1, 0, 0, 1)
 
 [node name="Hint" type="Label" parent="HUD/CenterContainer"]
 layout_mode = 2
