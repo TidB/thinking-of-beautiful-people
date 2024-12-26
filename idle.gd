@@ -103,7 +103,11 @@ func buy_charger(index):
 		bought_chargers[index] = 0
 	bought_chargers[index] += 1
 	
+	
+	
 	generate_buttons()
 
 func buy_capacity():
 	pass
+
+# TODO: 
