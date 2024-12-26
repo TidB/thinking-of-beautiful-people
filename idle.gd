@@ -1,6 +1,6 @@
 extends Control
 
-var current_capacity = 1
+var current_capacity = 5
 var current_charging_rate = 0
 var current_charge = 0
 
@@ -14,18 +14,18 @@ class ChargingButton:
 	var charge_amount: int
 	var charges_per_second: int
 	
-	func _init(label, unlocked_after, base_cost, charge_amount, charges_per_second):
+	func _init(unlocked_after, base_cost, charge_amount, charges_per_second, label):
 		self.label = label
 		self.unlocked_after = unlocked_after
 		self.charge_amount = charge_amount
-		self.charges_per_second = charges_per_second  # -1 = continous
+		self.charges_per_second = charges_per_second  # > 30 -> continous
 		self.base_cost = base_cost
 
 class CapacityButton:
 	extends Item
 	var capacity: int
 	
-	func _init(label, unlocked_after, base_cost, capacity):
+	func _init(unlocked_after, base_cost, capacity, label):
 		self.label = label
 		self.unlocked_after = unlocked_after
 		self.capacity = capacity
@@ -33,26 +33,47 @@ class CapacityButton:
 	
 
 var charging_buttons = [
-	ChargingButton.new("Hire a hamster", 0, 1, 1, 1),
-	ChargingButton.new("Hire someone to turn a crank", 10, 5, 2, 10),
+	ChargingButton.new(0, 1, 1, 1, "Manually insert a battery"),
+	ChargingButton.new(10, 5, 2, 3, "Hire someone to turn a crank"),
+	ChargingButton.new(50, 25, 4, 6, "Hire a hamster"),
 ]
 
 var capacity_buttons = [
-	CapacityButton.new("Add a powerbank", 0, 1, 1),
-	CapacityButton.new("Add a car battery", 10, 5, 10),
+	CapacityButton.new(0, 1, 1, "Add a powerbank"),
+	CapacityButton.new(10, 5, 10, "Add a car battery"),
 ]
 
-var bought_items = {} # key: index of charging_buttons, value: amount bought
-
+var bought_chargers = {} # key: index of charging_buttons, value: amount bought
+var bought_capacity = {}
+var last_update_for_index = {}
 
 func _ready() -> void:
 	for i in charging_buttons.size():
-		bought_items[i] = 0
+		bought_chargers[i] = 0
+		last_update_for_index[i] = 0
+	for i in capacity_buttons.size():
+		bought_capacity[i] = 0
 		
 	generate_buttons()
 
+
 func _physics_process(delta: float) -> void:
-	pass
+	for i in last_update_for_index.size():
+		var button_data = charging_buttons[i]
+		if button_data.charges_per_second > 30:
+			current_charge += bought_chargers[i] * button_data.charge_amount * button_data.charges_per_second * delta
+		elif last_update_for_index[i] > (1 / button_data.charges_per_second):  # TODO: This assumes that we can only miss /one/ update here, so actions faster than the physics framerate wouldn't work
+			last_update_for_index[i] = 0
+			current_charge += button_data.charge_amount * bought_chargers[i]
+		else:
+			last_update_for_index[i] += delta
+		
+	if current_charge >= current_capacity:
+		$HBoxContainer/MarginContainer3/CapacityExceeded.visible = true
+	else:
+		$HBoxContainer/MarginContainer3/CapacityExceeded.visible = false
+	current_charge = min(current_capacity, current_charge)
+	$HBoxContainer/MarginContainer3/StoredCounter.text = "%d" % (current_charge)
 
 func generate_buttons():
 	for parent in [$HBoxContainer/MarginContainer/Charging, $HBoxContainer/MarginContainer2/Capacity]:
@@ -66,7 +87,7 @@ func generate_buttons():
 	var i = 0
 	for b in charging_buttons:
 		var button = Button.new()
-		button.text = b.label + " (" + str(bought_items[i]) + " owned)\n(" + str(b.charge_amount) + " every " + str(b.charges_per_second) + " seconds)"
+		button.text = b.label + " (" + str(bought_chargers[i]) + " owned)\n(" + str(b.charge_amount * b.charges_per_second) + " per second)"
 		button.pressed.connect(func(): self.buy_charger(i))
 		$HBoxContainer/MarginContainer/Charging.add_child(button)
 		i += 1
@@ -78,9 +99,9 @@ func generate_buttons():
 		$HBoxContainer/MarginContainer2/Capacity.add_child(button)
 
 func buy_charger(index):
-	if index not in bought_items:
-		bought_items[index] = 0
-	bought_items[index] += 1
+	if index not in bought_chargers:
+		bought_chargers[index] = 0
+	bought_chargers[index] += 1
 	
 	generate_buttons()
 
