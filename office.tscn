@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=49 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://3cgow4it6v6" path="res://GUIPanel3D.tscn" id="10_fahc4"]
 [ext_resource type="Script" path="res://light-emergency.gd" id="11_vr7wl"]
 [ext_resource type="Script" path="res://fireworks.gd" id="12_agqh3"]
+[ext_resource type="Script" path="res://dialogue.gd" id="13_hxx81"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xhhop"]
 size = Vector3(0.2, 4, 2.485)
@@ -615,6 +616,10 @@ light_volumetric_fog_energy = 10.0
 spot_range = 13.874
 spot_attenuation = 0.02
 spot_angle = 5.0
+
+[node name="dialogue" type="Node" parent="."]
+script = ExtResource("13_hxx81")
+dialogue_name = null
 
 [editable path="RoomPlayer/PlayerSITTINGREFERENCE"]
 [editable path="Player"]

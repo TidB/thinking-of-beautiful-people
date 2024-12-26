@@ -1,0 +1,175 @@
+# s Sarah
+# a Alex
+# m Mitchell
+
+s Ah, you're the new hire.
+a Hi!
+m Excuse the mess, we've been renovating
+s Your room’s done though, so just hop in!
+s You’re responsible for the emergency power system, but don’t worry -
+s It’s pretty easy to understand and upgrade
+a Should we just leave them in their room or…?
+m They’ll be fine.
+a Sarah, why would you set their first work day on new year‘s eve…
+
+# door shuts when player clicks to sit
+
+# dialogue should start after you reach a magic number in the idle game, or after some specified time
+# cabinet crashes against the door door, smashes it open, falls into the room
+
+m Ah crap, so sorry!
+a Mitchell?!
+m Yeah sorry I’ll just.. try to get it out of the way…
+s You’re a master of first impressions
+m They’ll survive
+a When I started here, you broke my desk trying to drag it somewhere you said had a “better view”
+
+/ PAUSE
+
+a Better view than their office
+a No sunlight is a bit sad
+m I mean, this whole floor is mostly below ground. 
+m The windows are my lifeline
+s The sunrises are always pretty from here
+
+/ GARBAGE
+
+m The garbage trucks seem to come often
+s A bit too often
+a What, you have a history with garbage trucks?
+m Why would they come more often?
+m Someone would need to produce more garbage
+m Maybe there‘s an unknown subtenant?
+
+/ PAUSE
+
+m You’re sure they’re a good fit for us, right?
+s Wouldn’t have hired them otherwise.
+
+/ EMERGENCY
+
+a I don’t like that they stopped here
+m Not for us this time, is it?
+s Let me check
+m Should I…
+s It’s fine.
+sSeems they’re headed for the upstairs office.
+a This job really helped me learn to distinguish between police and ambulance car lights
+m Wouldn’t necessarily recommend putting that on your CV
+
+/ PAUSE
+
+s Still, always feels like they might be headed for our office
+m It’s fine
+a Is it?
+a I never feel secure around them
+a Maybe in an abstract sense
+a But I think I‘ll do something stupid and they‘ll arrest me
+m I‘m always listening if their footsteps stop before our door
+m Don‘t worry
+
+/ PAUSE
+
+m I feel like we‘ll need the emergency power today
+
+/ IT‘S GETTING DARK, STREET LAMPS TURN ON (constant, orangish glow)
+
+m Why is it so bright?
+m Aren‘t you worried?
+a About what?
+m Alex, look at these street lamps. 
+m They can look inside and spy on us. 
+s We had some issues with that previously
+s I think
+s Not that it was ever cleared up
+m But we‘re sure of it
+m They‘re looking at us
+
+a I hope our new hire does a good job
+a Feels like we might need it
+m They‘re doing a good job
+m Just hope they‘re on our side
+
+/ CAR
+
+a Is that guy coming straight towards us??
+s The street just points towards us
+a … it‘s way too straight. There‘s no indicator
+a They‘re trying to crashing into us
+
+# By now, the car should have swerved
+
+m Faked out. Intimidation tactic
+
+/ BLACKOUT
+
+a Ah shit
+m There we go. Come on.
+m Prepare for the worst
+
+/ BACKUP 
+
+a Thank god
+m Well Sarah, your new hire did a good job after all
+a The outages have become more frequent, right?
+s Feels like it
+m I believe the city is cutting our power now intentionally
+a They‘re probably diverting power to the datacenters just out of town
+s Probably both.
+
+# sTODO: Stuff about them previously wanting to go out for celebrations
+
+BIG EXPLOSION (One very bright white blast, with a yellow linger?)
+
+m Shit shit shit
+a They must be close
+m They‘re everywhere
+
+/ FIREWORKS
+
+s Fireworks…
+NYE after all
+m No way those are just fireworks
+
+/ FIRE
+
+a What about the new hire?
+m They left a while ago I think
+s They‘re probably in on it
+
+/ SMOKE
+
+# (RADIO CHATTER)
+
+m Ah fuck
+s Shut up!
+
+# (quietly, smaller font size?)
+
+a I think the firemen are looking for us
+s They‘re not firemen
+m They want to see us dead
+m Shit, if we only prepared for this
+m Only got this shitty emergency power
+s They‘re getting close
+s Hold your breath.
+s Don‘t let them see you
+a What if they catch us?
+m Alex, give me the hammer
+
+/ FLASHLIGHT
+
+a They‘re firemen…
+s They‘re not. It‘s a disguise
+m To think they would go to such lengths…
+
+/ NIGHT
+
+LOW BASS DROWNING OUT EVERYTHING ELSE, SLIGHTLY FADES OUT AS THE SUN COMES UP
+
+a Hey, sorry for last night
+a Let myself get carried away.
+a I guess I sometimes don’t need to react that quickly
+a Just see where it goes
+a It‘ll turn out differently anyway
+a And happy new year!
