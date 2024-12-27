@@ -25,11 +25,11 @@ func index_to_node(index, intro):
 			return $IntroBubbles/Sarah
 	else:
 		if index == 0:
-			return $Alex
+			return $NormalBubbles/Alex
 		elif index == 1:
-			return $Sprite3D/Mitchell
+			return $NormalBubbles/Mitchell
 		elif index == 2:
-			return $Sarah
+			return $NormalBubbles/Sarah
 
 func set_text(text, index, intro):
 	for i in range(3):

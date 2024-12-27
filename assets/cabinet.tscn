@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfuk10ug0ysds"]
+
+[ext_resource type="Material" uid="uid://b7eslv7tu1sx8" path="res://greenmetal.tres" id="1_pgubx"]
+[ext_resource type="Material" uid="uid://s4x5pbwl3487" path="res://metal.tres" id="2_6uhyf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cw0yu"]
+material = ExtResource("1_pgubx")
+size = Vector3(1.4, 2, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wb0g2"]
+material = ExtResource("2_6uhyf")
+size = Vector3(1, 0.81, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sy1hq"]
+size = Vector3(1.195, 1.885, 1.05)
+
+[node name="Cabinet" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+gi_mode = 2
+mesh = SubResource("BoxMesh_cw0yu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477932, 0.295076)
+gi_mode = 2
+mesh = SubResource("BoxMesh_wb0g2")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.452309, 0.295076)
+gi_mode = 2
+mesh = SubResource("BoxMesh_wb0g2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_sy1hq")

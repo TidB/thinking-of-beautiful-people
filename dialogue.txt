@@ -2,19 +2,6 @@
 # a Alex
 # m Mitchell
 
-s Ah, you're the new hire.
-a Hi!
-m Excuse the mess, we've been renovating
-s Your room’s done though, so just hop in!
-s You’re responsible for the emergency power system, but don’t worry -
-s It’s pretty easy to understand and upgrade
-a Should we just leave them in their room or…?
-m They’ll be fine.
-a Sarah, why would you set their first work day on new year‘s eve…
-
-# door shuts when player clicks to sit
-
-# dialogue should start after you reach a magic number in the idle game, or after some specified time
 # cabinet crashes against the door door, smashes it open, falls into the room
 
 m Ah crap, so sorry!
@@ -53,7 +40,7 @@ m Not for us this time, is it?
 s Let me check
 m Should I…
 s It’s fine.
-sSeems they’re headed for the upstairs office.
+s Seems they’re headed for the upstairs office.
 a This job really helped me learn to distinguish between police and ambulance car lights
 m Wouldn’t necessarily recommend putting that on your CV
 
@@ -119,7 +106,7 @@ s Probably both.
 
 # sTODO: Stuff about them previously wanting to go out for celebrations
 
-BIG EXPLOSION (One very bright white blast, with a yellow linger?)
+/ EXPLOSION
 
 m Shit shit shit
 a They must be close

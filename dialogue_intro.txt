@@ -1,6 +1,7 @@
 s Ah, you're the new hire.
 a Hi!
 m Excuse the mess, we've been renovating
+m Can barely get out of our offices
 s Your room’s done though, so just hop in!
 s You’re responsible for the emergency power system, but don’t worry -
 s It’s pretty easy to understand and upgrade

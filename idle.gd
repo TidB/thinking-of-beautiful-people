@@ -1,5 +1,9 @@
 extends Control
 
+signal start_main_dialogue
+const DIALOGUE_TRIGGER = 100
+var triggered = false
+
 var current_capacity = 5
 var current_charging_rate = 0
 var current_charge = 0
@@ -41,6 +45,7 @@ var charging_buttons = [
 var capacity_buttons = [
 	CapacityButton.new(0, 1, 1, "Add a powerbank"),
 	CapacityButton.new(10, 5, 10, "Add a car battery"),
+	CapacityButton.new(50, 25, 25, "Add a flywheel"),
 ]
 
 var bought_chargers = {} # key: index of charging_buttons, value: amount bought
@@ -74,6 +79,10 @@ func _physics_process(delta: float) -> void:
 		$HBoxContainer/MarginContainer3/CapacityExceeded.visible = false
 	current_charge = min(current_capacity, current_charge)
 	$HBoxContainer/MarginContainer3/StoredCounter.text = "%d" % (current_charge)
+	
+	if current_charge > DIALOGUE_TRIGGER and not triggered:
+		triggered = true
+		start_main_dialogue.emit()
 
 func generate_buttons():
 	for parent in [$HBoxContainer/MarginContainer/Charging, $HBoxContainer/MarginContainer2/Capacity]:
@@ -92,11 +101,13 @@ func generate_buttons():
 		$HBoxContainer/MarginContainer/Charging.add_child(button)
 		i += 1
 
+	i = 0
 	for b in capacity_buttons:
 		var button = Button.new()
-		button.text = b.label
-		button.pressed.connect(self.buy_capacity)
+		button.text = b.label + " (" + str(bought_capacity[i]) + " owned)"
+		button.pressed.connect(func(): self.buy_capacity(i))
 		$HBoxContainer/MarginContainer2/Capacity.add_child(button)
+		i += 1
 
 func buy_charger(index):
 	if index not in bought_chargers:
@@ -105,7 +116,11 @@ func buy_charger(index):
 	
 	generate_buttons()
 
-func buy_capacity():
-	pass
+func buy_capacity(index):
+	if index not in bought_capacity:
+		bought_capacity[index] = 0
+	bought_capacity[index] += 1
+	
+	current_capacity += capacity_buttons[index].capacity
 
 # TODO: 

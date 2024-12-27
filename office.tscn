@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=62 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -7,13 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://c1re1h1uqyrxs" path="res://Player.tscn" id="2_yonry"]
 [ext_resource type="Script" path="res://sit_down.gd" id="3_m4kpa"]
 [ext_resource type="Material" uid="uid://s4x5pbwl3487" path="res://metal.tres" id="3_sixn7"]
-[ext_resource type="PackedScene" uid="uid://bigicmpj3i45r" path="res://chair.tscn" id="5_unb5w"]
+[ext_resource type="PackedScene" uid="uid://bigicmpj3i45r" path="res://assets/chair.tscn" id="5_unb5w"]
 [ext_resource type="PackedScene" uid="uid://6rwgr5vxtsvq" path="res://ui.tscn" id="6_w7hbt"]
 [ext_resource type="PackedScene" uid="uid://3cgow4it6v6" path="res://GUIPanel3D.tscn" id="10_fahc4"]
-[ext_resource type="PackedScene" uid="uid://cq3gb7hbffjgn" path="res://ladder.tscn" id="10_h7wbs"]
+[ext_resource type="PackedScene" uid="uid://cq3gb7hbffjgn" path="res://assets/ladder.tscn" id="10_h7wbs"]
+[ext_resource type="PackedScene" uid="uid://cfuk10ug0ysds" path="res://assets/cabinet.tscn" id="10_u1fl4"]
 [ext_resource type="Script" path="res://light-emergency.gd" id="11_vr7wl"]
 [ext_resource type="Script" path="res://fireworks.gd" id="12_agqh3"]
 [ext_resource type="Script" path="res://dialogue.gd" id="13_hxx81"]
+[ext_resource type="PackedScene" uid="uid://c102fx7lcb6rw" path="res://assets/box.tscn" id="15_6xql5"]
+[ext_resource type="PackedScene" uid="uid://brjrima712oic" path="res://assets/normaldesk.tscn" id="16_nas1y"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xhhop"]
 size = Vector3(0.2, 4, 2.485)
@@ -54,17 +57,25 @@ size = Vector3(0.86, 1.1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_62r25"]
 size = Vector3(1.97, 2.885, 2.035)
 
-[sub_resource type="Gradient" id="Gradient_pahya"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_r56ow"]
-gradient = SubResource("Gradient_pahya")
-width = 129
-height = 54
-
 [sub_resource type="BoxMesh" id="BoxMesh_awc85"]
 material = ExtResource("2_x8il0")
-size = Vector3(1.5, 2.5, 0.2)
+size = Vector3(1.4, 2.5, 0.3)
+
+[sub_resource type="Animation" id="Animation_38gga"]
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 4.37114e-08, 1, 1, 0, 0, 0, -1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../cabinet_pivot")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_o7e8s"]
 resource_name = "close"
@@ -76,24 +87,38 @@ tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 4.37114e-08, 1, 1, 0, -3.17865e-08, 0, 1)
 
-[sub_resource type="Animation" id="Animation_38gga"]
+[sub_resource type="Animation" id="Animation_ldt7e"]
+resource_name = "break"
+length = 2.0
 tracks/0/type = "rotation_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 2
+tracks/0/path = NodePath("../cabinet_pivot")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 4.37114e-08, 1, 1, 0, 0, 0, -1)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.3334, 1, 0.389743, 0, 0, 0.920924, 0.4, 1, 0.717847, 0, 0, 0.696201)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.8666, 1, 0, 0.999796, 0, 0.0201834, 1.8, 1, 0, 0.975311, 0, 0.220834, 2, 1, 0, 0.968457, 0, 0.24918)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fetvl"]
 _data = {
 "RESET": SubResource("Animation_38gga"),
+"break": SubResource("Animation_ldt7e"),
 "close": SubResource("Animation_o7e8s")
 }
 
 [sub_resource type="BoxMesh" id="BoxMesh_w8hi3"]
 material = ExtResource("2_x8il0")
 size = Vector3(0.2, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ljsow"]
+material = ExtResource("2_x8il0")
+size = Vector3(0.2, 4, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_miclv"]
 size = Vector3(0.2, 4, 5.87)
@@ -105,6 +130,8 @@ size = Vector3(0.2, 4, 5.26)
 size = Vector3(4.905, 4.69, 6.15)
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_uepr1"]
+sun_disk_scale = 2.0
+energy_multiplier = 2.0
 
 [sub_resource type="Sky" id="Sky_aih42"]
 sky_material = SubResource("PhysicalSkyMaterial_uepr1")
@@ -122,8 +149,22 @@ glow_levels/7 = 1.0
 volumetric_fog_density = 0.1
 volumetric_fog_temporal_reprojection_amount = 0.99
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_48kiw"]
+noise_type = 3
+frequency = 0.0885
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yyxj7"]
+as_normal_map = true
+bump_strength = 0.2
+noise = SubResource("FastNoiseLite_48kiw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5r24t"]
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_yyxj7")
+
 [sub_resource type="BoxMesh" id="BoxMesh_nfoyx"]
-material = ExtResource("2_x8il0")
+material = SubResource("StandardMaterial3D_5r24t")
 size = Vector3(20, 3, 15)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1syun"]
@@ -217,6 +258,21 @@ _data = {
 }
 point_count = 4
 
+[sub_resource type="Animation" id="Animation_huvym"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_mmwdm"]
 resource_name = "i_drive"
 length = 30.0
@@ -233,26 +289,18 @@ tracks/0/keys = {
 "values": [0.4, 1.0]
 }
 
-[sub_resource type="Animation" id="Animation_huvym"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:progress_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g2wd2"]
 _data = {
 "RESET": SubResource("Animation_huvym"),
 "i_drive": SubResource("Animation_mmwdm")
 }
+
+[sub_resource type="BoxMesh" id="BoxMesh_ajxhk"]
+size = Vector3(1.445, 1.21, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xirry"]
+material = ExtResource("3_sixn7")
+size = Vector3(1.5, 2.2, 0.505)
 
 [node name="Office" type="Node3D"]
 script = ExtResource("1_osxml")
@@ -368,31 +416,28 @@ shape = SubResource("BoxShape3D_62r25")
 transform = Transform3D(0.696939, 0, 0.717129, 0, 1, 0, -0.717129, 0, 0.696939, -1.0035, -0.077845, -1.25177)
 
 [node name="Sarah" type="Label3D" parent="RoomPlayer/Bubbles/IntroBubbles"]
-transform = Transform3D(-0.813294, 0, -0.581853, 0, 1, 0, 0.581853, 0, -0.813294, 0.911559, 0.386243, -1.75209)
+transform = Transform3D(-0.813294, 0, -0.581853, 0, 1, 0, 0.581853, 0, -0.813294, 0.775811, 0.386243, -1.68879)
 pixel_size = 0.0025
-text = "Test hahahhahahahah hahah hahah hh ahahhah"
 font_size = 40
 outline_size = 7
 autowrap_mode = 2
-width = 300.0
+width = 400.0
 
 [node name="Alex" type="Label3D" parent="RoomPlayer/Bubbles/IntroBubbles"]
-transform = Transform3D(-0.898465, 0, 0.439046, 0, 1, 0, -0.439046, 0, -0.898465, -0.316965, -0.552955, -0.257036)
+transform = Transform3D(-0.858414, 0, 0.512957, 0, 1, 0, -0.512957, 0, -0.858414, -0.333104, -0.552955, -0.307889)
 pixel_size = 0.0025
-text = "Alex Text"
 font_size = 40
 outline_size = 7
 autowrap_mode = 2
-width = 300.0
+width = 400.0
 
 [node name="Mitchell" type="Label3D" parent="RoomPlayer/Bubbles/IntroBubbles"]
-transform = Transform3D(-0.875557, 0, 0.483114, 0, 1, 0, -0.483114, 0, -0.875557, -0.388758, 0, -0.247469)
+transform = Transform3D(-0.875557, 0, 0.483114, 0, 1, 0, -0.483114, 0, -0.875557, -0.307499, 0.900892, -0.348528)
 pixel_size = 0.0025
-text = "Mitchell Text"
 font_size = 40
 outline_size = 7
 autowrap_mode = 2
-width = 300.0
+width = 400.0
 
 [node name="NormalBubbles" type="Node3D" parent="RoomPlayer/Bubbles"]
 visible = false
@@ -405,24 +450,33 @@ text = "Sarah Text"
 transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, -0.552955, 0)
 text = "Alex Text"
 
-[node name="Sprite3D" type="Sprite3D" parent="RoomPlayer/Bubbles/NormalBubbles"]
-transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0, 0)
-texture = SubResource("GradientTexture2D_r56ow")
-
-[node name="Mitchell" type="Label3D" parent="RoomPlayer/Bubbles/NormalBubbles/Sprite3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000774384, 0, 0.0112729)
+[node name="Mitchell" type="Label3D" parent="RoomPlayer/Bubbles/NormalBubbles"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -0.000774384, 0, 0.0112728)
 text = "Mitchell Text"
 
-[node name="hinge" type="Node3D" parent="RoomPlayer"]
+[node name="Node" type="Node" parent="RoomPlayer"]
+
+[node name="cabinet_pivot" type="Node3D" parent="RoomPlayer/Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25557, 0.0121416, 0.745864)
+visible = false
+
+[node name="Cabinet2" parent="RoomPlayer/Node/cabinet_pivot" instance=ExtResource("10_u1fl4")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0187206, 0.859866, -0.631636)
+
+[node name="CollisionShape3D" parent="RoomPlayer/Node/cabinet_pivot/Cabinet2/StaticBody3D" index="0"]
+disabled = true
+
+[node name="hinge" type="Node3D" parent="RoomPlayer/Node"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 5.10893, 0.84837, 1.31342)
 
-[node name="Door" type="MeshInstance3D" parent="RoomPlayer/hinge"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.748096, 0.39209, -0.100687)
+[node name="Door" type="MeshInstance3D" parent="RoomPlayer/Node/hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.728304, 0.39209, -0.100687)
 gi_mode = 2
 mesh = SubResource("BoxMesh_awc85")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomPlayer/hinge"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomPlayer/Node"]
+root_node = NodePath("../hinge")
 libraries = {
 "": SubResource("AnimationLibrary_fetvl")
 }
@@ -432,6 +486,11 @@ libraries = {
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomMitchellAlex"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.50041, 1.69124, -2.67234)
 mesh = SubResource("BoxMesh_w8hi3")
+skeleton = NodePath("../../RoomSarah")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.50041, 1.69124, 0.803094)
+mesh = SubResource("BoxMesh_ljsow")
 skeleton = NodePath("../../RoomSarah")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="RoomMitchellAlex"]
@@ -453,7 +512,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01289, 2.21919, -1.65966)
 shape = SubResource("BoxShape3D_u4fq3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RoomMitchellAlex"]
-transform = Transform3D(1, 0, 0, 0, 0.972305, 0.233717, 0, -0.233717, 0.972305, 3.04623, 1.46261, -0.302776)
+transform = Transform3D(1, 0, 0, 0, 0.972305, 0.233717, 0, -0.233717, 0.972305, 2.93465, 1.46261, -0.302776)
 mesh = SubResource("BoxMesh_fxcaj")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="RoomMitchellAlex"]
@@ -461,7 +520,11 @@ transform = Transform3D(-4.37114e-08, 0.233717, -0.972305, 0, 0.972305, 0.233717
 mesh = SubResource("BoxMesh_fxcaj")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="RoomMitchellAlex"]
-transform = Transform3D(1, 0, 0, 0, 0.966043, 0.258381, 0, -0.258381, 0.966043, 3.04623, 1.44526, -0.213022)
+transform = Transform3D(1, 0, 0, 0, 0.966043, 0.258381, 0, -0.258381, 0.966043, 2.93465, 1.44526, -0.213022)
+mesh = SubResource("BoxMesh_fxcaj")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(0.00488364, -0.9996, 0.0278559, -0.984488, 7.95395e-05, 0.175453, -0.175385, -0.0282807, -0.984094, 1.79501, 0.591879, -4.87273)
 mesh = SubResource("BoxMesh_fxcaj")
 
 [node name="VoxelGI" type="VoxelGI" parent="."]
@@ -537,7 +600,7 @@ use_collision = true
 size = Vector3(20, 8, 3)
 
 [node name="Player" parent="." instance=ExtResource("2_yonry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95837, 0.954457, -1.66403)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85621, 0.954457, 4.65284)
 
 [node name="lights" type="Node3D" parent="."]
 visible = false
@@ -603,7 +666,7 @@ spot_angle = 30.64
 curve = SubResource("Curve3D_ihdax")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="light-fx/car/Path3D"]
-transform = Transform3D(-1, -1.01885e-11, 2.3833e-06, 0, 1.00011, 4.27447e-06, -2.3833e-06, 4.27495e-06, -1, 4.96208, 2.38814, -52.2934)
+transform = Transform3D(-1, -1.00983e-11, 2.36221e-06, 0, 1.00011, 4.27447e-06, -2.36221e-06, 4.27494e-06, -1, 4.96216, 2.38829, -86.9303)
 rotation_mode = 4
 
 [node name="car" type="Node3D" parent="light-fx/car/Path3D/PathFollow3D"]
@@ -721,4 +784,60 @@ spot_range = 13.874
 spot_attenuation = 0.02
 spot_angle = 5.0
 
+[node name="otherstuff" type="Node3D" parent="."]
+
+[node name="Chair" parent="otherstuff" instance=ExtResource("5_unb5w")]
+transform = Transform3D(-0.997633, 8.72158e-08, 0.068764, -8.74228e-08, -1, 0, 0.068764, -6.01154e-09, 0.997633, -0.236378, 0.0232611, 2.58124)
+
+[node name="Chair2" parent="otherstuff" instance=ExtResource("5_unb5w")]
+transform = Transform3D(-0.964257, 8.42981e-08, -0.264967, -8.74228e-08, -1, 0, -0.264967, 2.31642e-08, 0.964257, -0.236378, 0.0232611, 3.39249)
+
+[node name="Ladder" parent="otherstuff" instance=ExtResource("10_h7wbs")]
+transform = Transform3D(0.99917, 0, 0.0407422, 0, 1, 0, -0.0407422, 0, 0.99917, -1.67956, 0.622987, -0.849013)
+
+[node name="Box" parent="otherstuff" instance=ExtResource("15_6xql5")]
+transform = Transform3D(0.749175, 0, 0.662372, 0, 1, 0, -0.662372, 0, 0.749175, -3.59515, 0.366603, 4.52065)
+
+[node name="Box7" parent="otherstuff" instance=ExtResource("15_6xql5")]
+transform = Transform3D(0.749175, 0, 0.662372, 0, 1, 0, -0.662372, 0, 0.749175, -8.74263, 0.366603, -6.11283)
+
+[node name="Box8" parent="otherstuff" instance=ExtResource("15_6xql5")]
+transform = Transform3D(0.749175, 0, 0.662372, 0, 1, 0, -0.662372, 0, 0.749175, -6.63622, 0.366603, -2.15449)
+
+[node name="Box2" parent="otherstuff" instance=ExtResource("15_6xql5")]
+transform = Transform3D(0.128917, 0, 0.991655, 0, 1, 0, -0.991655, 0, 0.128917, -7.77555, 0.366603, 4.8277)
+
+[node name="Box3" parent="otherstuff" instance=ExtResource("15_6xql5")]
+transform = Transform3D(-0.382796, 0, 0.923833, 0, 1, 0, -0.923833, 0, -0.382796, -6.69381, 0.366603, 4.32217)
+
+[node name="Box6" parent="otherstuff" instance=ExtResource("15_6xql5")]
+transform = Transform3D(0.997401, 0, -0.0720547, 0, 1, 0, 0.0720547, 0, 0.997401, -6.63236, 0.366603, 5.26898)
+
+[node name="Box4" parent="otherstuff" instance=ExtResource("15_6xql5")]
+transform = Transform3D(-0.616679, 0, -0.787215, 0, 1, 0, 0.787215, 0, -0.616679, -7.47867, 0.366603, 3.66558)
+
+[node name="Box5" parent="otherstuff" instance=ExtResource("15_6xql5")]
+transform = Transform3D(-0.616679, 0, -0.787215, -0.41617, 0.848833, 0.326014, 0.668214, 0.528661, -0.523457, -7.47867, 1.13845, 5.32723)
+
+[node name="Normaldesk" parent="otherstuff" instance=ExtResource("16_nas1y")]
+transform = Transform3D(-0.864222, 7.72675e-08, 0.50311, -8.9407e-08, -1, 0, 0.50311, -4.49816e-08, 0.864222, 7.26361, 0.0249309, -5.87662)
+
+[node name="Normaldesk3" parent="otherstuff" instance=ExtResource("16_nas1y")]
+transform = Transform3D(0.648319, 0.696063, 0.308511, 1.55171e-08, -0.405205, 0.914226, 0.761369, -0.59271, -0.262703, 7.76868, 0.748419, -6.26851)
+
+[node name="Normaldesk2" parent="otherstuff" instance=ExtResource("16_nas1y")]
+transform = Transform3D(-0.897343, 7.84482e-08, -0.441334, -8.74228e-08, -1, 0, -0.441334, 3.85826e-08, 0.897343, 1.82907, 0, -0.861743)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="otherstuff"]
+transform = Transform3D(1, 0, 0, 0, 0.984625, -0.174679, 0, 0.174679, 0.984625, 0, 0.593821, -4.81964)
+mesh = SubResource("BoxMesh_ajxhk")
+
+[node name="exit" type="MeshInstance3D" parent="otherstuff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3434, 1.07851, 6.14436)
+mesh = SubResource("BoxMesh_xirry")
+
+[node name="Cabinet" parent="otherstuff" instance=ExtResource("10_u1fl4")]
+transform = Transform3D(-0.171052, 0, -0.985262, 0, 1, 0, 0.985262, 0, -0.171052, -2.01967, 0.998146, -2.45217)
+
+[editable path="RoomPlayer/Node/cabinet_pivot/Cabinet2"]
 [editable path="Player"]

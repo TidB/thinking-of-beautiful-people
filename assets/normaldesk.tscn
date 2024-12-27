@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://brjrima712oic"]
+
+[ext_resource type="Material" uid="uid://s4x5pbwl3487" path="res://metal.tres" id="1_bo7gf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cmy8o"]
+size = Vector3(0.7, 0.05, 1.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6ldy0"]
+material = ExtResource("1_bo7gf")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.8
+
+[node name="Normaldesk" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_cmy8o")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.286954, -0.418984, -0.659711)
+mesh = SubResource("CylinderMesh_6ldy0")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.300233, -0.418984, -0.659711)
+mesh = SubResource("CylinderMesh_6ldy0")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.286954, -0.418984, 0.6305)
+mesh = SubResource("CylinderMesh_6ldy0")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.300233, -0.418984, 0.6305)
+mesh = SubResource("CylinderMesh_6ldy0")

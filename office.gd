@@ -22,7 +22,8 @@ func _ready() -> void:
 		i.switch_camera.connect(self.switch_camera)
 
 	Global.connect("pause", self.pause_unpause)
-	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/hinge/AnimationPlayer.play("close"))
+	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/Node/AnimationPlayer.play("close"))
+	$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.start_main_dialogue.connect(self.start_main)
 	#switch_camera()
 
 func pause_unpause(should_pause):
@@ -34,8 +35,13 @@ func pause_unpause(should_pause):
 		get_tree().paused = true
 
 func switch_camera():
-	#$RoomPlayer/SittingCamera.make_current()
-	#$Player.visible = false
+	$RoomPlayer/Bubbles/IntroBubbles.visible = false
 	$Player.sit()
 	$Player.position = Vector3(1.314, 0.482, 4.465)
 	$Player.rotation_degrees = Vector3(0, -90, 0)
+
+func start_main():
+	$RoomPlayer/Node/cabinet_pivot.visible = true
+	$RoomPlayer/Node/AnimationPlayer.play("break")
+	$RoomPlayer/Bubbles/NormalBubbles.visible = true
+	$RoomPlayer/Bubbles.start
