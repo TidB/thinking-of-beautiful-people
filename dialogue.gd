@@ -1,58 +1,66 @@
-extends Node
+extends Node3D
 
 const MINIMUM_WAIT = 700
 	
 enum Action {
-	PLAYER,
-	OTHER,
-	#FADE
+	ALEX,
+	MITCHELL,
+	SARAH
 }
 
 signal advance
-signal show(text)
-signal hide
 signal finished
 
-var player
-var ui  # Used for the player's lines
-var other
+var played_intro = false
 var last_line = Time.get_ticks_msec()
 var timer
-var loop = 0
-#var gradient = load("res://bg_gradient.tres").gradient
-#var blink_timer
-var bright = true
+
+func index_to_node(index, intro):
+	if intro:
+		if index == 0:
+			return $IntroBubbles/Alex
+		elif index == 1:
+			return $IntroBubbles/Mitchell
+		elif index == 2:
+			return $IntroBubbles/Sarah
+	else:
+		if index == 0:
+			return $Alex
+		elif index == 1:
+			return $Sprite3D/Mitchell
+		elif index == 2:
+			return $Sarah
+
+func set_text(text, index, intro):
+	for i in range(3):
+		if i == index: 
+			index_to_node(i, intro).text = text
+		else:
+			index_to_node(i, intro).text = ''
 
 func _ready():
 	add_to_group("dialogue")
-	other = $".."
-	# TODO: Add warning if two dialogues overlap? In the current concept, it's unwanted as you could advance two dialogues at once
 	timer = Timer.new()
 	add_child(timer)
 	#blink_timer = Timer.new()
 	#blink_timer.connect("timeout", self, "_on_blink_timer_timeout")
 	#add_child(blink_timer)
-	self.body_entered.connect(_on_body_entered_dialogue)
-	self.body_exited.connect(_on_body_exited_dialogue)
-	
-func set_ui(u):
-	ui = u
-	
-func set_player(p):
-	player = p
+	$activator.body_entered.connect(_on_body_entered_dialogue)
 
 func start():
-	var dialogue = parse_dialogue()
-	play(dialogue)
+	var dialogue = parse_dialogue("dialogue")
+	play(dialogue, false)
+	
+func start_intro():
+	var dialogue = parse_dialogue("dialogue_intro")
+	play(dialogue, true)
 		
-func parse_dialogue():
-	var file = FileAccess.open("res://dialogue.txt", FileAccess.READ)
+func parse_dialogue(filename):
+	var file = FileAccess.open("res://" + filename + ".txt", FileAccess.READ)
 	var content = file.get_as_text()
 	file = null
 	
 	var dialogue = {}
-	#for t in Global.TIME_CONFIG:
-	#	dialogue[str(t['offset'])] = []
 	
 	var current_time = str(0)
 	dialogue[current_time] = []
@@ -83,21 +91,22 @@ func parse_dialogue():
 				printerr("invalid dialogue line: ", line)
 			
 			var action
-			if person_line[0] == 'o':
-				action = Action.OTHER
-			elif person_line[0] == 'p':
-				action = Action.PLAYER
+			if person_line[0] == 'a':
+				action = Action.ALEX
+			elif person_line[0] == 'm':
+				action = Action.MITCHELL
+			elif person_line[0] == 's':
+				action = Action.SARAH
 			else:
 				printerr("invalid dialogue person in line: ", person_line)
 			dialogue[current_time].append([action, person_line[1], condition])
 	
 	return dialogue
 
-func play(dialogue):
-	#var time = Global.TIME_CONFIG[Global.current_time]['offset']
+func play(dialogue, intro):
 	var time = 0
 	for line in dialogue[str(time)]:
-		if line[0] in [Action.PLAYER, Action.OTHER]:
+		if line[0] in [Action.ALEX, Action.MITCHELL, Action.SARAH]:
 			var condition = line[2]
 			if condition:
 				if condition[0] in Global.choices:
@@ -108,29 +117,28 @@ func play(dialogue):
 					continue
 				
 			last_line = Time.get_ticks_msec()
-			if line[0] == Action.PLAYER:
-				ui.show_line(line[1])
-				other.hide_line()
-			elif line[0] == Action.OTHER:
-				other.show_line(line[1])
-				ui.hide_line()
+			set_text(line[1], line[0], intro)
+			#if line[0] == Action.SARAH:
+				#set_text(line[1], line[0], intro)
+			#elif line[0] == Action.MITCHELL:
+				#if intro:
+					#$IntroBubbles/Sarah.text = line[1]
+			#elif line[0] == Action.ALEX:
+				#if intro:
+					#$IntroBubbles/Sarah.text = line[1]
 			#emit_signal("show", line[1])
 #
 #			last_line = Time.get_ticks_msec()
 #
 			# TODO: Min wait time
-#			var word_count = len(line[1].split(" "))
-#			var reading_time = max(1.5, word_count / 225.0 * 60) / Global.TEXT_SPEED
-#
-#			print(word_count, " words, equals ", reading_time, " seconds")
-#			timer.start(reading_time) 
-			await self.advance  # TODO: It works in practice, but seems wonky when considering re-triggering
+			var word_count = len(line[1].split(" "))
+			var reading_time = max(1.5, word_count / 225.0 * 60) / Global.TEXT_SPEED
+
+			print(word_count, " words, equals ", reading_time, " seconds")
+			timer.start(reading_time) 
+			await timer.timeout
 			
-			ui.hide_line()
-			other.hide_line()
-	
-	ui.dialogue_finished()
-	other.dialogue_finished()
+	set_text('', -1, intro)
 
 #		elif line[0] == Action.FADE:
 #			$TweenFade.interpolate_property($Fade, "color", Color(0, 0, 0, 0), Color(0, 0, 0, 1), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -151,34 +159,8 @@ func play(dialogue):
 	
 	#timer.start(1)
 	#await timer.timeout
-		
-func interact():
-	#print("interacted with!!")
-	if self.overlaps_body(player):
-		#print("and the player is inside me!!")
-		if Time.get_ticks_msec() - last_line > MINIMUM_WAIT:
-			emit_signal("advance")
-
-#func _on_blink_timer_timeout():
-#	if bright:
-#		$Values/ProdLabel.add_color_override("font_color", Color(1, 1, 1))
-#	else:
-#		$Values/ProdLabel.add_color_override("font_color", Color(0.8, 0.8, 0.8))
-#	bright = !bright
 
 func _on_body_entered_dialogue(body):
-	# When this happens: show the latest dialogue that makes sense, similar to CosmoD
-	# Usually reset it to the last repeatable puzzle intro, but don't advance yet (only when clicked on *and* body is still there)
-	# TODO: Ideally, we might want to make some 'cinematic' adjustments so we can have some kind of playable cutscene instead
-	# 		of totally separated little repeatable snippets
-	#print("body entered: ", body)
-	player.set_active_dialogue_position(other.position + Vector3(0, 0.636, 0)) # Don't look at the middle, a bit above
-	other.display_dialogue(true)
-	ui.display_dialogue(true)
-	self.start()
-	
-func _on_body_exited_dialogue(body):
-	#print("body exited: ", body)
-	player.set_active_dialogue_position(null)
-	other.display_dialogue(false)
-	ui.display_dialogue(false)
+	if not played_intro:
+		played_intro = true
+		self.start_intro()

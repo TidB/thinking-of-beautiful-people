@@ -1,15 +1,16 @@
-[gd_scene load_steps=49 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=54 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
 [ext_resource type="Script" path="res://desk.gd" id="2_jr1nt"]
+[ext_resource type="Material" uid="uid://lv2vqclhblf2" path="res://cheapmat.tres" id="2_x8il0"]
 [ext_resource type="PackedScene" uid="uid://c1re1h1uqyrxs" path="res://Player.tscn" id="2_yonry"]
 [ext_resource type="Script" path="res://sit_down.gd" id="3_m4kpa"]
-[ext_resource type="Shader" path="res://ceiling.gdshader" id="3_oiawv"]
 [ext_resource type="Material" uid="uid://s4x5pbwl3487" path="res://metal.tres" id="3_sixn7"]
 [ext_resource type="PackedScene" uid="uid://bigicmpj3i45r" path="res://chair.tscn" id="5_unb5w"]
 [ext_resource type="PackedScene" uid="uid://6rwgr5vxtsvq" path="res://ui.tscn" id="6_w7hbt"]
 [ext_resource type="PackedScene" uid="uid://3cgow4it6v6" path="res://GUIPanel3D.tscn" id="10_fahc4"]
+[ext_resource type="PackedScene" uid="uid://cq3gb7hbffjgn" path="res://ladder.tscn" id="10_h7wbs"]
 [ext_resource type="Script" path="res://light-emergency.gd" id="11_vr7wl"]
 [ext_resource type="Script" path="res://fireworks.gd" id="12_agqh3"]
 [ext_resource type="Script" path="res://dialogue.gd" id="13_hxx81"]
@@ -23,8 +24,17 @@ size = Vector3(0.2, 4, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_haeym"]
 size = Vector3(3.14, 4.69, 5.685)
 
+[sub_resource type="BoxMesh" id="BoxMesh_fxcaj"]
+size = Vector3(1.2, 3, 0.05)
+
 [sub_resource type="BoxMesh" id="BoxMesh_k2inx"]
 size = Vector3(0.2, 4, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ho4oj"]
+size = Vector3(0.2, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bbn8l"]
+size = Vector3(0.275, 3.665, 4.775)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2dou8"]
 size = Vector3(0.7, 0.05, 1.5)
@@ -41,12 +51,8 @@ size = Vector3(0.07, 0.38, 0.66)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ul6uf"]
 size = Vector3(0.86, 1.1, 1)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_hikxx"]
-height = 0.664
-radius = 0.3
-
-[sub_resource type="BoxMesh" id="BoxMesh_awc85"]
-size = Vector3(1.785, 2.5, 0.2)
+[sub_resource type="BoxShape3D" id="BoxShape3D_62r25"]
+size = Vector3(1.97, 2.885, 2.035)
 
 [sub_resource type="Gradient" id="Gradient_pahya"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -56,20 +62,47 @@ gradient = SubResource("Gradient_pahya")
 width = 129
 height = 54
 
+[sub_resource type="BoxMesh" id="BoxMesh_awc85"]
+material = ExtResource("2_x8il0")
+size = Vector3(1.5, 2.5, 0.2)
+
+[sub_resource type="Animation" id="Animation_o7e8s"]
+resource_name = "close"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 4.37114e-08, 1, 1, 0, -3.17865e-08, 0, 1)
+
+[sub_resource type="Animation" id="Animation_38gga"]
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 4.37114e-08, 1, 1, 0, 0, 0, -1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fetvl"]
+_data = {
+"RESET": SubResource("Animation_38gga"),
+"close": SubResource("Animation_o7e8s")
+}
+
 [sub_resource type="BoxMesh" id="BoxMesh_w8hi3"]
-size = Vector3(0.2, 4, 4.7)
+material = ExtResource("2_x8il0")
+size = Vector3(0.2, 4, 4)
 
 [sub_resource type="BoxMesh" id="BoxMesh_miclv"]
 size = Vector3(0.2, 4, 5.87)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ho4oj"]
-size = Vector3(0.2, 4, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4ul86"]
 size = Vector3(0.2, 4, 5.26)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u4fq3"]
-size = Vector3(4.795, 4.69, 5.685)
+size = Vector3(4.905, 4.69, 6.15)
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_uepr1"]
 
@@ -89,12 +122,8 @@ glow_levels/7 = 1.0
 volumetric_fog_density = 0.1
 volumetric_fog_temporal_reprojection_amount = 0.99
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0lmh"]
-render_priority = 0
-shader = ExtResource("3_oiawv")
-
 [sub_resource type="BoxMesh" id="BoxMesh_nfoyx"]
-material = SubResource("ShaderMaterial_h0lmh")
+material = ExtResource("2_x8il0")
 size = Vector3(20, 3, 15)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1syun"]
@@ -232,18 +261,22 @@ script = ExtResource("1_osxml")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RoomSarah"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 1.57577, 0.0336249)
+material_override = ExtResource("2_x8il0")
 mesh = SubResource("BoxMesh_xhhop")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="RoomSarah"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 1.56507, -3.44837)
+material_override = ExtResource("2_x8il0")
 mesh = SubResource("BoxMesh_xhhop")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="RoomSarah"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.764, 1.9117, 1.17605)
+material_override = ExtResource("2_x8il0")
 mesh = SubResource("BoxMesh_e6fo1")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomSarah"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.764, 1.7174, -4.59185)
+material_override = ExtResource("2_x8il0")
 mesh = SubResource("BoxMesh_e6fo1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RoomSarah"]
@@ -252,12 +285,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.84858, 2.21919, -1.65966)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomSarah/StaticBody3D"]
 shape = SubResource("BoxShape3D_haeym")
 
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="RoomSarah"]
+transform = Transform3D(1.31134e-07, -0.233717, 0.972305, 8.88178e-16, 0.972305, 0.233717, -1, -3.06483e-08, 1.27502e-07, 5.65674, 1.46261, -1.65678)
+mesh = SubResource("BoxMesh_fxcaj")
+
+[node name="Ladder" parent="RoomSarah" instance=ExtResource("10_h7wbs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.55036, 0.616771, -1.43881)
+
 [node name="RoomPlayer" type="Node" parent="."]
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomPlayer"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.75736, 1.858, 1.2)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.03761, 1.858, 1.2)
+material_override = ExtResource("2_x8il0")
 mesh = SubResource("BoxMesh_k2inx")
 skeleton = NodePath("../../RoomSarah")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="RoomPlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657018, 1.78791, 3.66148)
+material_override = ExtResource("2_x8il0")
+mesh = SubResource("BoxMesh_ho4oj")
+skeleton = NodePath("../../RoomSarah")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RoomPlayer/MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomPlayer/MeshInstance3D4/StaticBody3D"]
+shape = SubResource("BoxShape3D_bbn8l")
 
 [node name="Desk" type="Node3D" parent="RoomPlayer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0415, 0.810787, 4.49382)
@@ -289,13 +341,8 @@ mesh = SubResource("BoxMesh_agly6")
 [node name="GuiPanel3d" parent="RoomPlayer/Desk/MeshInstance3D6" instance=ExtResource("10_fahc4")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.046721, 0, 0)
 
-[node name="SittingCamera" type="Camera3D" parent="RoomPlayer"]
-transform = Transform3D(0.000331597, 0, -1, 0, 1, 0, 1, 0, 0.000331597, 1.31404, 1.23375, 4.46182)
-visible = false
-
 [node name="Chair" parent="RoomPlayer" instance=ExtResource("5_unb5w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30418, 0.485108, 4.4511)
-visible = false
 
 [node name="SitDown" type="StaticBody3D" parent="RoomPlayer/Chair"]
 collision_layer = 2
@@ -305,63 +352,117 @@ script = ExtResource("3_m4kpa")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132285, 0)
 shape = SubResource("BoxShape3D_ul6uf")
 
-[node name="PlayerSITTINGREFERENCE" parent="RoomPlayer" instance=ExtResource("2_yonry")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.31363, 0.482368, 4.46495)
-visible = false
-
-[node name="CollisionShape3D" parent="RoomPlayer/PlayerSITTINGREFERENCE" index="0"]
-shape = SubResource("CylinderShape3D_hikxx")
-
-[node name="Door" type="MeshInstance3D" parent="RoomPlayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.21399, 1.24046, 1.21273)
-visible = false
-mesh = SubResource("BoxMesh_awc85")
-
 [node name="Bubbles" type="Node3D" parent="RoomPlayer"]
 transform = Transform3D(0.69694, 0, -0.71713, 0, 1, 0, 0.71713, 0, 0.69694, 4.07293, 1.38032, 1.59205)
+script = ExtResource("13_hxx81")
 
-[node name="Sarah" type="Label3D" parent="RoomPlayer/Bubbles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.608053, 0)
+[node name="activator" type="Area3D" parent="RoomPlayer/Bubbles"]
+transform = Transform3D(0.707106, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707106, -2.99732, 0, -3.19731)
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomPlayer/Bubbles/activator"]
+shape = SubResource("BoxShape3D_62r25")
+
+[node name="IntroBubbles" type="Node3D" parent="RoomPlayer/Bubbles"]
+transform = Transform3D(0.696939, 0, 0.717129, 0, 1, 0, -0.717129, 0, 0.696939, -1.0035, -0.077845, -1.25177)
+
+[node name="Sarah" type="Label3D" parent="RoomPlayer/Bubbles/IntroBubbles"]
+transform = Transform3D(-0.813294, 0, -0.581853, 0, 1, 0, 0.581853, 0, -0.813294, 0.911559, 0.386243, -1.75209)
+pixel_size = 0.0025
+text = "Test hahahhahahahah hahah hahah hh ahahhah"
+font_size = 40
+outline_size = 7
+autowrap_mode = 2
+width = 300.0
+
+[node name="Alex" type="Label3D" parent="RoomPlayer/Bubbles/IntroBubbles"]
+transform = Transform3D(-0.898465, 0, 0.439046, 0, 1, 0, -0.439046, 0, -0.898465, -0.316965, -0.552955, -0.257036)
+pixel_size = 0.0025
+text = "Alex Text"
+font_size = 40
+outline_size = 7
+autowrap_mode = 2
+width = 300.0
+
+[node name="Mitchell" type="Label3D" parent="RoomPlayer/Bubbles/IntroBubbles"]
+transform = Transform3D(-0.875557, 0, 0.483114, 0, 1, 0, -0.483114, 0, -0.875557, -0.388758, 0, -0.247469)
+pixel_size = 0.0025
+text = "Mitchell Text"
+font_size = 40
+outline_size = 7
+autowrap_mode = 2
+width = 300.0
+
+[node name="NormalBubbles" type="Node3D" parent="RoomPlayer/Bubbles"]
+visible = false
+
+[node name="Sarah" type="Label3D" parent="RoomPlayer/Bubbles/NormalBubbles"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.608053, 0)
 text = "Sarah Text"
 
-[node name="Alex" type="Label3D" parent="RoomPlayer/Bubbles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.552955, 0)
+[node name="Alex" type="Label3D" parent="RoomPlayer/Bubbles/NormalBubbles"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, -0.552955, 0)
 text = "Alex Text"
 
-[node name="Sprite3D" type="Sprite3D" parent="RoomPlayer/Bubbles"]
+[node name="Sprite3D" type="Sprite3D" parent="RoomPlayer/Bubbles/NormalBubbles"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0, 0)
 texture = SubResource("GradientTexture2D_r56ow")
 
-[node name="Mitchell" type="Label3D" parent="RoomPlayer/Bubbles/Sprite3D"]
+[node name="Mitchell" type="Label3D" parent="RoomPlayer/Bubbles/NormalBubbles/Sprite3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000774384, 0, 0.0112729)
 text = "Mitchell Text"
+
+[node name="hinge" type="Node3D" parent="RoomPlayer"]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 5.10893, 0.84837, 1.31342)
+
+[node name="Door" type="MeshInstance3D" parent="RoomPlayer/hinge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.748096, 0.39209, -0.100687)
+gi_mode = 2
+mesh = SubResource("BoxMesh_awc85")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomPlayer/hinge"]
+libraries = {
+"": SubResource("AnimationLibrary_fetvl")
+}
 
 [node name="RoomMitchellAlex" type="Node" parent="."]
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomMitchellAlex"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2202, 1.69124, -2.34649)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.50041, 1.69124, -2.67234)
 mesh = SubResource("BoxMesh_w8hi3")
 skeleton = NodePath("../../RoomSarah")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="RoomMitchellAlex"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.64196, 1.66748, -1.76379)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36175, 1.66748, -1.76379)
+material_override = ExtResource("2_x8il0")
 mesh = SubResource("BoxMesh_miclv")
-skeleton = NodePath("../../RoomSarah")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="RoomMitchellAlex"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657018, 1.78791, 3.66148)
-mesh = SubResource("BoxMesh_ho4oj")
 skeleton = NodePath("../../RoomSarah")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="RoomMitchellAlex"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.965874, 1.75953, -4.6)
+material_override = ExtResource("2_x8il0")
 mesh = SubResource("BoxMesh_4ul86")
 skeleton = NodePath("../../RoomSarah")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="RoomMitchellAlex"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.797019, 2.21919, -1.65966)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01289, 2.21919, -1.65966)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomMitchellAlex/StaticBody3D2"]
 shape = SubResource("BoxShape3D_u4fq3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(1, 0, 0, 0, 0.972305, 0.233717, 0, -0.233717, 0.972305, 3.04623, 1.46261, -0.302776)
+mesh = SubResource("BoxMesh_fxcaj")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(-4.37114e-08, 0.233717, -0.972305, 0, 0.972305, 0.233717, 1, 1.02161e-08, -4.25008e-08, 3.03718, 1.46261, -1.42966)
+mesh = SubResource("BoxMesh_fxcaj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RoomMitchellAlex"]
+transform = Transform3D(1, 0, 0, 0, 0.966043, 0.258381, 0, -0.258381, 0.966043, 3.04623, 1.44526, -0.213022)
+mesh = SubResource("BoxMesh_fxcaj")
 
 [node name="VoxelGI" type="VoxelGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835974, 0)
@@ -373,7 +474,6 @@ environment = SubResource("Environment_pbto2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.988358, 0.0921783, 0.121046, 0.0686255, -0.98014, 0.186055, 0.135793, -0.175582, -0.975054, 4.37225, 0, 0)
-visible = false
 light_color = Color(1, 0.870588, 0.764706, 1)
 light_energy = 2.0
 light_angular_distance = 0.5
@@ -407,11 +507,13 @@ material = SubResource("StandardMaterial3D_hbbpb")
 
 [node name="Wall3" type="CSGBox3D" parent="geo"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.75158, 1.3185, 0.0907545)
+material_override = ExtResource("2_x8il0")
 use_collision = true
 size = Vector3(15, 5.82, 3)
 
 [node name="Wall4" type="CSGBox3D" parent="geo"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10.5596, 1.3, 0.091)
+material_override = ExtResource("2_x8il0")
 use_collision = true
 size = Vector3(15, 7, 2)
 
@@ -420,6 +522,7 @@ use_collision = true
 
 [node name="Wall" type="CSGBox3D" parent="geo/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3185, -7.2462)
+material_override = ExtResource("2_x8il0")
 size = Vector3(20, 5, 1)
 
 [node name="Window" type="CSGBox3D" parent="geo/CSGCombiner3D"]
@@ -429,6 +532,7 @@ size = Vector3(17, 1.4, 1.835)
 
 [node name="Wall2" type="CSGBox3D" parent="geo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.319, 7.5)
+material_override = ExtResource("2_x8il0")
 use_collision = true
 size = Vector3(20, 8, 3)
 
@@ -617,9 +721,4 @@ spot_range = 13.874
 spot_attenuation = 0.02
 spot_angle = 5.0
 
-[node name="dialogue" type="Node" parent="."]
-script = ExtResource("13_hxx81")
-dialogue_name = null
-
-[editable path="RoomPlayer/PlayerSITTINGREFERENCE"]
 [editable path="Player"]

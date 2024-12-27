@@ -19,13 +19,11 @@ emission_texture = SubResource("ViewportTexture_jwihd")
 size = Vector3(0.685, 0.4, 0.045)
 
 [node name="GuiPanel3d" type="Node3D"]
-process_mode = 3
 script = ExtResource("1_sdqmq")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 gui_embed_subwindows = true
 size = Vector2i(1920, 1080)
-render_target_update_mode = 4
 
 [node name="Idle" parent="SubViewport" instance=ExtResource("2_pxtyh")]
 

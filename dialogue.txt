@@ -128,7 +128,7 @@ m They‘re everywhere
 / FIREWORKS
 
 s Fireworks…
-NYE after all
+s NYE after all
 m No way those are just fireworks
 
 / FIRE
@@ -165,7 +165,7 @@ m To think they would go to such lengths…
 
 / NIGHT
 
-LOW BASS DROWNING OUT EVERYTHING ELSE, SLIGHTLY FADES OUT AS THE SUN COMES UP
+# LOW BASS DROWNING OUT EVERYTHING ELSE, SLIGHTLY FADES OUT AS THE SUN COMES UP
 
 a Hey, sorry for last night
 a Let myself get carried away.

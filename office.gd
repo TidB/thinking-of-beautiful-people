@@ -20,10 +20,10 @@ func _ready() -> void:
 		i.show_hint.connect($UI._on_show_hint)
 		i.hide_hint.connect($UI._on_hide_hint)
 		i.switch_camera.connect(self.switch_camera)
-	$RoomPlayer/PlayerSITTINGREFERENCE.forward_event.connect(self.forward_event)
 
 	Global.connect("pause", self.pause_unpause)
-	switch_camera()
+	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/hinge/AnimationPlayer.play("close"))
+	#switch_camera()
 
 func pause_unpause(should_pause):
 	if not should_pause:
@@ -39,7 +39,3 @@ func switch_camera():
 	$Player.sit()
 	$Player.position = Vector3(1.314, 0.482, 4.465)
 	$Player.rotation_degrees = Vector3(0, -90, 0)
-
-func forward_event(event):
-	#$RoomPlayer/Desk/SubViewport.push_input(event)
-	pass

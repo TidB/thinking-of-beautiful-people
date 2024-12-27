@@ -4,6 +4,7 @@ signal interacted(state)
 signal show_hint(text)
 signal hide_hint
 signal switch_camera
+signal close_door
 
 var used = false
 
@@ -28,6 +29,7 @@ func use():
 		
 	remove_highlight()
 	switch_camera.emit()
+	close_door.emit()
 	self.visible = false
 	used = true
 
