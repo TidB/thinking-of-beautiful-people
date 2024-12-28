@@ -9,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_qreyf")
 
 [node name="HUD" type="MarginContainer" parent="."]
@@ -23,9 +24,10 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="Crosshair" type="ColorRect" parent="HUD/CenterContainer"]
-custom_minimum_size = Vector2(1, 1)
+custom_minimum_size = Vector2(2, 2)
 layout_mode = 2
-color = Color(1, 0, 0, 1)
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
 
 [node name="Hint" type="Label" parent="HUD/CenterContainer"]
 layout_mode = 2
