@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=97 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -638,6 +638,48 @@ _data = {
 "start_fire": SubResource("Animation_lvx0j")
 }
 
+[sub_resource type="Animation" id="Animation_xbpky"]
+resource_name = "search"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flashlight")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0.0666667, 1, 0, 0.986905, 0, -0.161302, 1.4, 1, -0.00381474, 0.996184, -0.0623168, 0.0609818, 4.9, 1, 0.00115539, 0.980607, 0.159894, 0.113322, 6.96667, 1, 0.0351464, 0.995377, 0.0525407, -0.072312, 9.03333, 1, 0.0317849, 0.953423, 0.238441, -0.181988)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("flashlight2")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0.0666667, 1, 0, 0.992557, 0, 0.121783, 1.7, 1, -0.0114301, 0.988175, -0.0931578, 0.121245, 3.26667, 1, -0.0592829, 0.967047, 0.235036, -0.0778699, 5.33333, 1, -0.0507858, 0.996834, 0.0506798, 0.0342591, 7.1, 1, -0.0383635, 0.979861, 0.0606291, -0.186345, 8.9, 1, -0.116628, 0.969454, 0.214904, 0.0193001)
+
+[sub_resource type="Animation" id="Animation_63sqx"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("flashlight")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.986905, 0, -0.161302)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("flashlight2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.992557, 0, 0.121783)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xaorv"]
+_data = {
+"RESET": SubResource("Animation_63sqx"),
+"search": SubResource("Animation_xbpky")
+}
+
 [sub_resource type="BoxMesh" id="BoxMesh_ajxhk"]
 size = Vector3(1.445, 1.21, 0.03)
 
@@ -1166,21 +1208,29 @@ libraries = {
 speed_scale = 2.0
 
 [node name="flashlights" type="Node3D" parent="light-fx"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12704, 0)
 visible = false
 
 [node name="flashlight" type="SpotLight3D" parent="light-fx/flashlights"]
 transform = Transform3D(-0.947963, 0, -0.31838, 0, 1, 0, 0.31838, 0, -0.947963, 4.39801, 0.864589, 0)
-light_volumetric_fog_energy = 5.0
+light_energy = 2.0
+light_volumetric_fog_energy = 2.5
 spot_range = 13.874
 spot_attenuation = 0.02
 spot_angle = 5.0
 
 [node name="flashlight2" type="SpotLight3D" parent="light-fx/flashlights"]
-transform = Transform3D(-0.973107, 0, 0.230355, -0.0546975, 0.9714, -0.231063, -0.223767, -0.237449, -0.945276, 4.39801, 0.864589, 0)
-light_volumetric_fog_energy = 5.0
+transform = Transform3D(-0.970338, 0, 0.241752, 0, 1, 0, -0.241753, 0, -0.970338, 4.39801, 0.864589, 0)
+light_energy = 2.0
+light_volumetric_fog_energy = 2.5
 spot_range = 13.874
 spot_attenuation = 0.02
 spot_angle = 5.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="light-fx/flashlights"]
+libraries = {
+"": SubResource("AnimationLibrary_xaorv")
+}
 
 [node name="otherstuff" type="Node3D" parent="."]
 

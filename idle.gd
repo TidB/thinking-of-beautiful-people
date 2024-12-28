@@ -1,7 +1,7 @@
 extends Control
 
 signal start_main_dialogue
-const DIALOGUE_TRIGGER = 10#000
+const DIALOGUE_TRIGGER = 10000
 var triggered = false
 
 var current_capacity = 5

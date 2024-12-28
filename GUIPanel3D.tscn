@@ -12,6 +12,7 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ke87"]
 resource_local_to_scene = true
 transparency = 1
+cull_mode = 2
 albedo_color = Color(1, 1, 1, 0.792157)
 emission_enabled = true
 emission_energy_multiplier = 0.45

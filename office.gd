@@ -26,7 +26,7 @@ func _ready() -> void:
 	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/Node/AnimationPlayer.play("close"))
 	$RoomPlayer/Desk/GuiPanel3d/SubViewport/Idle.start_main_dialogue.connect(self.start_main)
 	$RoomPlayer/Bubbles.happening.connect(self.happening)
-	switch_camera()
+	#switch_camera()
 	#switch_final_camera()
 
 func pause_unpause(should_pause):
@@ -110,9 +110,11 @@ func happening(code):
 		$"light-fx/fire/AnimationPlayer".stop()
 		$"light-fx/fire".visible = false
 		$"light-fx/flashlights".visible = true
+		$"light-fx/flashlights/AnimationPlayer".play("search")
 		for bubble in [$RoomPlayer/Bubbles/NormalBubbles/Sarah, $RoomPlayer/Bubbles/NormalBubbles/Alex, $RoomPlayer/Bubbles/NormalBubbles/Mitchell]:
 			bubble.font_size = 35
 	elif code == 'NIGHT':
+		$"light-fx/flashlights/AnimationPlayer".stop()
 		$"light-fx/flashlights".visible = false
 		$Sun.visible = true
 		$Sun/AnimationPlayer.play("rise")

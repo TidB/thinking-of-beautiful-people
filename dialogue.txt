@@ -2,8 +2,6 @@
 # a Alex
 # m Mitchell
 
-/ FLASHLIGHTS
-
 m Ah crap, so sorry!
 a Mitchell?!
 m Yeah sorry I’ll just.. try to get it out of the way…
@@ -20,6 +18,7 @@ m I mean, this whole floor is mostly below ground
 m The windows are my lifeline
 a The sunrises are always pretty from here
 s If I had found a lease with a better view, I would've gotten it
+s Also means we're not as exposed
 
 / GARBAGE
 
@@ -33,8 +32,9 @@ m Why would they come more often?
 m You’re sure they’re a good fit for us, right?
 s Wouldn’t have hired them otherwise
 a Okay sorry, but why were you suspicious of the garbage truck?
-m Someone would need to produce more garbage
-m Maybe there‘s an unknown subtenant?
+m I'm just thinking, I think they're not collecting garbage from other tenants
+m A covert courier service, convenient for smuggling large objects
+m Maybe there‘s a subtenant we don't know yet?
 
 / EMERGENCY
 
@@ -44,8 +44,8 @@ a I don’t like that they stopped here
 m Not for us this time, is it?
 s Let me check
 m Should I…
-s It’s fine.
-s Seems they’re headed for the upstairs office.
+s It’s fine
+s Seems they’re headed for the upstairs office
 a This job really helped me learn to distinguish between police and ambulance car lights
 m Wouldn’t necessarily recommend putting that on your CV
 
@@ -59,11 +59,15 @@ a I never feel secure around them
 a Maybe in an abstract sense
 a But I think I‘ll do something stupid and they‘ll arrest me
 m I‘m always listening if their footsteps stop before our door
-m Don‘t worry
+m Don‘t worry. We got it under control
+s The police is the last of our worries
 
 / PAUSE
 
 m I feel like we‘ll need the emergency power today
+m I can already see the garbage truck arriving at the landfill, heading toward a new, temporary building
+m Clueless new workers sort the contents and put them on conveyor belts which head into the landfill
+m Inside, there's a cave with more and more workers deciphering the contents
 
 / LONGPAUSE
 / LONGPAUSE
@@ -82,11 +86,18 @@ s I think
 s Not that it was ever cleared up
 m But we‘re sure of it
 m They‘re looking at us
+s Caught some of them yesterday. The reflection of a camera lens blew their cover
 
 a I hope our new hire does a good job
 a Feels like we might need it
 m They‘re doing a good job
 m Just hope they‘re on our side
+a You wanna go out with them for the new year's celebrations?
+s Theoretically yes
+s But it's very unsafe out there. So many random people
+m Looking at us
+s Following us back to the office
+a Pulling out their lockpicks
 
 / LONGPAUSE
 / LONGPAUSE
@@ -133,8 +144,10 @@ s Feels like it
 m I believe the city is cutting our power now intentionally
 a They‘re probably diverting power to the datacenters just out of town
 s Probably both
-
-# TODO: Stuff about them previously wanting to go out for celebrations
+a We should maybe go off-grid entirely
+a Having an autarkic base would help us defend
+s There was a phase where I disavowed isolation
+s But it's the only way forward
 
 / LONGPAUSE
 / PAUSE
@@ -144,9 +157,14 @@ s Probably both
 m Shit shit shit
 a They must be close
 m They‘re everywhere
+m The hunter gave a warning shot and startled all the animals
+s He looks at himself with grim satisfaction
 
 / FIREWORKS
 
+a They're running towards us now
+s With their bright, exploding heads
+m Still looking at us
 s Fireworks…
 s NYE after all
 m No way those are just fireworks
@@ -154,11 +172,24 @@ m I'm blocking the windows
 s So many people on the streets. Sounds like they're celebrating
 m They're not celebrating, they're rioting. I can hear their voices closing in on us
 a Why did you bring me into this?
+s We need you to defend this. All of this
+m I can still hear the muffled explosions through the triple-glazed windows
+m THEY CAN STILL SEE US
 
 / LONGPAUSE
 / BLIND
 
 m There. We're safe, for now
+s Muffled sounds, muffled sights
+a Feels like a grave. But safer. Graves aren't safe
+m I read about that
+s Last sunday. I saw a group at the cemetery
+s Dressed in black. Slow-moving
+a Observing
+m Controlling
+s Only had point A and B. Moved between them. Nothing else
+m Controlled
+s Observed
 
 / LONGPAUSE
 / FIRE
@@ -168,14 +199,18 @@ m They left a while ago I think
 s They‘re probably in on it
 s Snuck out
 a Why would they–
+a I can see why
+m They're at our most vulnerable spot
+s What can we count on, if not our emergencies?
 
 / SMOKE
 
-# (RADIO CHATTER)
-
 m Ah fuck
+m They're coming
 m We got smoked out like rats
 a They're gonna clean up later and carry our bodies to the landfill
+a To the cave under the landfill
+a Where they'll scan and sort us
 s Shut up!
 
 a I think the firemen are looking for us
@@ -195,19 +230,19 @@ m Alex, give me the hammer
 a They‘re firemen…
 s They‘re not. It‘s a disguise
 m To think they would go to such lengths…
+s They will blind you. And then take you to the landfill
 
 / NIGHT
 
-# LOW BASS DROWNING OUT EVERYTHING ELSE, SLIGHTLY FADES OUT AS THE SUN COMES UP
-
 / LONGPAUSE
 / LONGPAUSE
 
-a What a night
+a A strange night
 a Let myself get carried away
 a I guess I sometimes don’t need to react that quickly
 a Just see where it goes
 a It‘ll turn out differently anyway
+a Most of our specters are our own creations
 
 / LONGPAUSE
 / END
