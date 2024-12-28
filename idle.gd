@@ -9,6 +9,7 @@ var current_charging_rate = 0
 var current_charge = 100#1
 
 var charge_record = 0
+var backup_active = false
 
 class Item:
 	var label: String
@@ -40,20 +41,20 @@ class CapacityButton:
 
 var charging_buttons = [
 	ChargingButton.new(0, 1, 1, 0.5, "Manually insert a battery"),
-	ChargingButton.new(10, 5, 2, 2, "Hire someone to turn a crank"),
-	ChargingButton.new(50, 25, 4, 6, "Hire a hamster"),
-	ChargingButton.new(50, 100, 8, 15, "Tap a neighbor's wire"),
-	ChargingButton.new(50, 250, 20, 50, "Keep a pet thunderstorm"),
-	ChargingButton.new(50, 250, 40, 100, "Build a Dyson Sphere (or multiple)"),
+	ChargingButton.new(10, 5, 5, 2, "Hire someone to turn a crank"),
+	ChargingButton.new(50, 50, 15, 6, "Hire a hamster"),
+	ChargingButton.new(750, 750, 70, 15, "Tap a neighbor's wire"),
+	ChargingButton.new(3500, 3500, 250, 50, "Keep a pet thunderstorm"),
+	ChargingButton.new(25000, 25000, 1200, 100, "Build a Dyson Sphere (or multiple)"),
 ]
 
 var capacity_buttons = [
 	CapacityButton.new(0, 2, 20, "Powerbank"),
 	CapacityButton.new(10, 5, 100, "Car Battery"),
-	CapacityButton.new(50, 25, 1000, "Flywheel"),
-	CapacityButton.new(50, 100, 25000, "Fuel Cell"),
-	CapacityButton.new(50, 250, 500000, "Pumped-Storage Power Plant"),
-	CapacityButton.new(50, 250, 500000, "Use the Earth as a Flywheel"),
+	CapacityButton.new(25, 25, 1000, "Flywheel"),
+	CapacityButton.new(100, 100, 25000, "Fuel Cell"),
+	CapacityButton.new(250, 250, 500000, "Pumped-Storage Power Plant"),
+	CapacityButton.new(250, 250, 10000000, "Use the Earth as a Flywheel"),
 ]
 
 var bought_chargers = {} # key: index of charging_buttons, value: amount bought
@@ -69,15 +70,15 @@ func charge_rate():
 # Let's assume a consumption rate of 1 J/s
 func to_time(charge):
 	if charge >= 3600 * 24 * 365.25:
-		return str(charge / (3600 * 24 * 365.25)) + " years"
+		return "%.2f years" % (charge / (3600 * 24 * 365.25))
 	if charge >= 3600 * 24:
-		return str(charge / (3600 * 24)) + "days"
+		return "%.2f days" % (charge / (3600 * 24))
 	if charge >= 3600:
-		return str(charge / 3600) + " hours"
+		return "%.2f hours" % (charge / 3600)
 	if charge >= 60:
-		return str(charge / 60) + " minutes"
+		return "%.2f minutes" % (charge / 60)
 	else:
-		return str(charge) + " seconds"
+		return "%.2f seconds" % (charge)
 
 func _ready() -> void:
 	for i in charging_buttons.size():
@@ -167,4 +168,12 @@ func buy_capacity(index):
 	current_capacity += capacity_buttons[index].capacity
 	$HBoxContainer/MarginContainer2/Capacity/CapacityCounter.text = "Maximum Capacity:\n" + str(current_capacity) + " J"
 
-# TODO: 
+func backup_mode(active):
+	if active:
+		backup_active = true
+		$HBoxContainer/MarginContainer3/VBoxContainer/BackupNotice.visible = true
+		$Panel.add_theme_stylebox_override("panel", load("res://idle_bg_backup.tres"))
+	else:
+		backup_active = false
+		$HBoxContainer/MarginContainer3/VBoxContainer/BackupNotice.visible = false
+		$Panel.add_theme_stylebox_override("panel", load("res://idle_bg.tres"))

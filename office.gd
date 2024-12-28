@@ -26,7 +26,7 @@ func _ready() -> void:
 	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/Node/AnimationPlayer.play("close"))
 	$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.start_main_dialogue.connect(self.start_main)
 	$RoomPlayer/Bubbles.happening.connect(self.happening)
-	switch_camera()
+	#switch_camera()
 	#switch_final_camera()
 
 func pause_unpause(should_pause):
@@ -83,6 +83,7 @@ func happening(code):
 		$"light-fx/streetlamp".visible = false
 	elif code == 'BACKUP':
 		$"light-fx/backup".visible = true
+		$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.backup_mode(true)
 	elif code == 'EXPLOSION':
 		$"light-fx/explosion".visible = true
 		$"light-fx/explosion/AnimationPlayer".play("bang")
@@ -102,6 +103,7 @@ func happening(code):
 		$"light-fx/fire/AnimationPlayer".stop()
 		$"light-fx/fire".visible = false
 		$WorldEnvironment.environment.volumetric_fog_enabled = true
+		$WorldEnvironment/AnimationPlayer.play("smoke")
 	elif code == 'FLASHLIGHT':
 		$"light-fx/flashlights".visible = true
 		for bubble in [$RoomPlayer/Bubbles/NormalBubbles/Sarah, $RoomPlayer/Bubbles/NormalBubbles/Alex, $RoomPlayer/Bubbles/NormalBubbles/Mitchell]:
@@ -113,6 +115,7 @@ func happening(code):
 		$WorldEnvironment.environment.volumetric_fog_density = 0.1
 		$RoomPlayer/Bubbles/NormalBubbles/Alex.font_size = 52
 	elif code == 'END':
+		$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.backup_mode(false)
 		$RoomPlayer/Node/HopOver/CollisionShape3D.disabled = false
 		$Player.allow_interaction()
 	else:

@@ -10,7 +10,7 @@ s If that cabinet fell into the sea you would've started a tsunami
 m They’ll survive
 a When I started here, you broke my desk trying to drag it somewhere you said had a “better view”
 
-/ PAUSE
+/ LONGPAUSE
 
 a Better view than their office at least
 a No sunlight is a bit sad
@@ -26,7 +26,7 @@ s A bit too often
 a What, you have a history with garbage trucks?
 m Why would they come more often?
 
-/ PAUSE
+/ LONGPAUSE
 
 m You’re sure they’re a good fit for us, right?
 s Wouldn’t have hired them otherwise
@@ -62,7 +62,8 @@ m Don‘t worry
 
 m I feel like we‘ll need the emergency power today
 
-/ PAUSE
+/ LONGPAUSE
+/ LONGPAUSE
 
 / STREETLAMPS
 
@@ -84,7 +85,8 @@ a Feels like we might need it
 m They‘re doing a good job
 m Just hope they‘re on our side
 
-/ PAUSE
+/ LONGPAUSE
+/ LONGPAUSE
 
 / CAR
 
@@ -93,7 +95,6 @@ s I can
 s This year was good, wasn't it?
 m Mmh
 a Is that guy driving straight towards us?
-a There!
 m It's normal, isn't it? We're next to an intersection
 a … it‘s way too straight. And too fast
 s I don't like this
@@ -109,6 +110,7 @@ a Next time he'll drive into us. Burn down the office. And get away with it.
 / PAUSE
 
 / BLACKOUT
+/ SHORTPAUSE
 
 a Ah shit
 m There we go. Come on
@@ -118,6 +120,8 @@ m Prepare for the worst
 
 a Thank god
 m Well Sarah, your new hire did a good job after all
+s I'm not sure. Look how weak the light is
+s It's almost worse than no light at all
 a The outages have become more frequent, right?
 s Feels like it
 m I believe the city is cutting our power now intentionally
@@ -126,6 +130,7 @@ s Probably both
 
 # TODO: Stuff about them previously wanting to go out for celebrations
 
+/ LONGPAUSE
 / PAUSE
 
 / EXPLOSION
@@ -144,10 +149,12 @@ s So many people on the streets. Sounds like they're celebrating
 m They're not celebrating, they're rioting. I can hear their voices closing in on us
 a Why did you bring me into this?
 
+/ LONGPAUSE
 / BLIND
 
 m There. We're safe, for now
 
+/ LONGPAUSE
 / FIRE
 
 a What about the new hire?
@@ -155,7 +162,6 @@ m They left a while ago I think
 s They‘re probably in on it
 s Snuck out
 a Why would they–
-
 
 / SMOKE
 
@@ -177,6 +183,7 @@ s Don‘t let them see you
 a What if they catch us?
 m Alex, give me the hammer
 
+/ LONGPAUSE
 / FLASHLIGHT
 
 a They‘re firemen…
@@ -187,12 +194,8 @@ m To think they would go to such lengths…
 
 # LOW BASS DROWNING OUT EVERYTHING ELSE, SLIGHTLY FADES OUT AS THE SUN COMES UP
 
-/ PAUSE
-/ PAUSE
-/ PAUSE
-/ PAUSE
-/ PAUSE
-/ PAUSE
+/ LONGPAUSE
+/ LONGPAUSE
 
 a What a night
 a Let myself get carried away
@@ -200,7 +203,7 @@ a I guess I sometimes don’t need to react that quickly
 a Just see where it goes
 a It‘ll turn out differently anyway
 
-/ PAUSE
+/ LONGPAUSE
 / END
 
 a Well, let's get out of here

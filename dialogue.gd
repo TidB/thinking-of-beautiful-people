@@ -128,6 +128,14 @@ func play(dialogue, intro):
 			set_text('', -1, intro)
 			timer.start(5)
 			await timer.timeout
+		elif line[0] == 'SHORTPAUSE':
+			set_text('', -1, intro)
+			timer.start(1.5)
+			await timer.timeout
+		elif line[0] == 'LONGPAUSE':
+			set_text('', -1, intro)
+			timer.start(15)
+			await timer.timeout
 		else:
 			print("emitting ", line[0])
 			happening.emit(line[0])

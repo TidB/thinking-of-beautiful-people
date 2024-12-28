@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=95 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -71,16 +71,6 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
 
-[sub_resource type="Animation" id="Animation_o7e8s"]
-resource_name = "close"
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 4.37114e-08, 1, 1, 0, -3.17865e-08, 0, 1)
-
 [sub_resource type="Animation" id="Animation_ldt7e"]
 resource_name = "break"
 length = 2.0
@@ -98,6 +88,16 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.8666, 1, 0, 0.999796, 0, 0.0201834, 1.8, 1, 0, 0.975311, 0, 0.220834, 2, 1, 0, 0.968457, 0, 0.24918)
+
+[sub_resource type="Animation" id="Animation_o7e8s"]
+resource_name = "close"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 4.37114e-08, 1, 1, 0, -3.17865e-08, 0, 1)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fetvl"]
 _data = {
@@ -129,42 +129,45 @@ glow_levels/2 = 1.0
 glow_levels/4 = 1.0
 glow_levels/6 = 1.0
 glow_levels/7 = 1.0
-volumetric_fog_density = 0.4
+volumetric_fog_density = 0.0
 volumetric_fog_length = 30.0
 volumetric_fog_temporal_reprojection_amount = 0.99
 
-[sub_resource type="Animation" id="Animation_78t3i"]
-resource_name = "wander"
-tracks/0/type = "rotation_3d"
+[sub_resource type="Animation" id="Animation_04oqo"]
+resource_name = "smoke"
+length = 15.0
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath(".:environment:volumetric_fog_density")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.992919, 0.0404876, 0.0646677, -0.091054, 0.5, 1, 0.968098, 0.0303501, 0.0700005, -0.238675)
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:light_energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.5, 1),
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [2.0, 0.0]
+"values": [0.0, 0.4]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../WorldEnvironment:environment:ambient_light_energy")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.5, 1),
-"transitions": PackedFloat32Array(1, 1),
+
+[sub_resource type="Animation" id="Animation_4lkrw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:environment:volumetric_fog_density")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0, 1.0]
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rf0an"]
+_data = {
+"RESET": SubResource("Animation_4lkrw"),
+"smoke": SubResource("Animation_04oqo")
 }
 
 [sub_resource type="Animation" id="Animation_6615c"]
@@ -221,6 +224,40 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 2.0]
+}
+
+[sub_resource type="Animation" id="Animation_78t3i"]
+resource_name = "wander"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.992919, 0.0404876, 0.0646677, -0.091054, 0.5, 1, 0.968098, 0.0303501, 0.0700005, -0.238675)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../WorldEnvironment:environment:ambient_light_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ugg1"]
@@ -280,6 +317,21 @@ tracks/0/keys = {
 "values": [2.963, 0.0, 2.963, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_jvgv0"]
+resource_name = "move_emergency"
+length = 27.0
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("light-fx/emergency")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 3.993, 0, 0, 2.03333, 1, -0.549652, 0, 0, 22.0333, 1, -0.549652, 0, 0, 23.5667, 1, -6.54169, 0, 0, 26.1667, 1, -25.2471, 0, 0)
+
+[sub_resource type="Animation" id="Animation_ogwor"]
+resource_name = "move_garbage"
+length = 25.0
+
 [sub_resource type="Animation" id="Animation_quqbv"]
 resource_name = "strobe"
 length = 0.25
@@ -309,21 +361,6 @@ tracks/1/keys = {
 "values": [4.016, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_ogwor"]
-resource_name = "move_garbage"
-length = 25.0
-
-[sub_resource type="Animation" id="Animation_jvgv0"]
-resource_name = "move_emergency"
-length = 27.0
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("light-fx/emergency")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 3.993, 0, 0, 2.03333, 1, -0.549652, 0, 0, 22.0333, 1, -0.549652, 0, 0, 23.5667, 1, -6.54169, 0, 0, 26.1667, 1, -25.2471, 0, 0)
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8exo4"]
 _data = {
 "RESET": SubResource("Animation_gergk"),
@@ -332,6 +369,16 @@ _data = {
 "move_garbage": SubResource("Animation_ogwor"),
 "strobe": SubResource("Animation_quqbv")
 }
+
+[sub_resource type="Animation" id="Animation_xq1ug"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 8.10575, 1.95417, -9.79014)
 
 [sub_resource type="Animation" id="Animation_pn6b5"]
 resource_name = "move_garbage"
@@ -343,16 +390,6 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array(0, 1, 8.10575, 1.95417, -9.79014, 25, 1, 0.357659, 1.95417, -9.79014)
-
-[sub_resource type="Animation" id="Animation_xq1ug"]
-length = 0.001
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 8.10575, 1.95417, -9.79014)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0cwt0"]
 _data = {
@@ -408,7 +445,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_mmwdm"]
 resource_name = "i_drive"
-length = 33.0
+length = 35.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -416,7 +453,7 @@ tracks/0/path = NodePath("..:progress_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(2.9, 32.9),
+"times": PackedFloat32Array(4.96667, 34.9667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.4, 1.0]
@@ -428,7 +465,7 @@ tracks/1/path = NodePath("headlight:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 2.86667, 22.8667),
+"times": PackedFloat32Array(0, 4.93333, 24.9333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 7.0, 10.0]
@@ -440,7 +477,7 @@ tracks/2/path = NodePath("headlight:spot_attenuation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(2.9, 22.8333),
+"times": PackedFloat32Array(4.96667, 24.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.9, 0.5]
@@ -452,7 +489,7 @@ tracks/3/path = NodePath("headlight2:light_energy")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 2.9, 22.8333),
+"times": PackedFloat32Array(0, 4.96667, 24.9),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 7.0, 10.0]
@@ -464,7 +501,7 @@ tracks/4/path = NodePath("headlight2:spot_attenuation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(2.9, 22.8333),
+"times": PackedFloat32Array(4.96667, 24.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.9, 0.5]
@@ -480,6 +517,21 @@ _data = {
 emission_enabled = true
 emission = Color(0.772549, 0.843137, 1, 1)
 emission_energy_multiplier = 11.96
+
+[sub_resource type="Animation" id="Animation_82m2y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.0]
+}
 
 [sub_resource type="Animation" id="Animation_wrvpb"]
 resource_name = "bang"
@@ -497,7 +549,13 @@ tracks/0/keys = {
 "values": [15.0, 10.0, 0.2, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_82m2y"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bx8pw"]
+_data = {
+"RESET": SubResource("Animation_82m2y"),
+"bang": SubResource("Animation_wrvpb")
+}
+
+[sub_resource type="Animation" id="Animation_5kucf"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -509,13 +567,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [10.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bx8pw"]
-_data = {
-"RESET": SubResource("Animation_82m2y"),
-"bang": SubResource("Animation_wrvpb")
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_7lbqy"]
@@ -547,24 +599,13 @@ tracks/1/keys = {
 "values": [0.7, 1.0, 0.5, 0.8, 0.2, 1.0, 0.3]
 }
 
-[sub_resource type="Animation" id="Animation_5kucf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:light_energy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
+[sub_resource type="Animation" id="Animation_isaq6"]
+resource_name = "smoke"
+length = 20.0
 
 [sub_resource type="Animation" id="Animation_lvx0j"]
 resource_name = "start_fire"
-length = 10.0
+length = 20.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -572,7 +613,7 @@ tracks/0/path = NodePath(".:light_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.13333, 3.66667, 5.33333, 6.8, 7.7, 9.46667),
+"times": PackedFloat32Array(0, 6.26667, 10.5667, 14.4333, 16.9667, 18.1667, 19.9333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.2, 0.4, 0.2, 0.3, 0.5, 0.8]
@@ -584,15 +625,11 @@ tracks/1/path = NodePath("../fire2:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.13333, 3.66667, 5.33333, 6.8, 7.7, 9.46667),
+"times": PackedFloat32Array(0, 5.7, 10.6, 14.3667, 17.1333, 18.1667, 19.9333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.2, 0.4, 0.2, 0.3, 0.5, 0.8]
 }
-
-[sub_resource type="Animation" id="Animation_isaq6"]
-resource_name = "smoke"
-length = 20.0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qr3d7"]
 _data = {
@@ -866,6 +903,8 @@ libraries = {
 
 [node name="HopOver" type="StaticBody3D" parent="RoomPlayer/Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.06168, 0, 2.39685)
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("11_3se2u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomPlayer/Node/HopOver"]
@@ -889,8 +928,13 @@ data = ExtResource("12_4o1st")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_pbto2")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WorldEnvironment"]
+libraries = {
+"": SubResource("AnimationLibrary_rf0an")
+}
+
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.988358, 0.0921784, 0.121046, 0.0686254, -0.98014, 0.186055, 0.135793, -0.175582, -0.975054, 4.37225, 0, 0)
+transform = Transform3D(0.988358, 0.0921782, 0.121046, 0.0686252, -0.98014, 0.186055, 0.135793, -0.175582, -0.975054, 4.37225, 0, 0)
 light_color = Color(1, 0.870588, 0.764706, 1)
 light_energy = 2.0
 light_angular_distance = 0.5
@@ -987,7 +1031,7 @@ spot_angle = 30.64
 curve = SubResource("Curve3D_ihdax")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="light-fx/car/Path3D"]
-transform = Transform3D(-1, -1.0099e-11, 2.36221e-06, 0, 1.00019, 4.27447e-06, -2.36221e-06, 4.27526e-06, -1, 4.96216, 2.38829, -86.9303)
+transform = Transform3D(-1, -1.00991e-11, 2.36221e-06, 0, 1.00019, 4.27447e-06, -2.36221e-06, 4.27528e-06, -1, 4.96216, 2.38829, -86.9303)
 rotation_mode = 4
 
 [node name="car" type="Node3D" parent="light-fx/car/Path3D/PathFollow3D"]
@@ -1117,7 +1161,7 @@ omni_attenuation = 0.387
 [node name="fire2" type="OmniLight3D" parent="light-fx/fire"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.89383, 2.92923, -6.16588)
 light_color = Color(1, 0.775538, 0.398387, 1)
-light_energy = 0.355263
+light_energy = 0.0
 shadow_enabled = true
 omni_range = 10.75
 omni_attenuation = 0.387
@@ -1208,6 +1252,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51669, 0.129618, -0.32857)
 mesh = SubResource("BoxMesh_f3fwk")
 
 [node name="leave" type="StaticBody3D" parent="otherstuff/exit"]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("23_s6vgf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="otherstuff/exit/leave"]
