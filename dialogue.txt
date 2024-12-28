@@ -101,7 +101,7 @@ s I don't like this
 a They‘re trying to crash into us
 s Get down!
 
-# By now, the car should have swerved
+/ SHORTPAUSE
 
 m Faked out. Intimidation tactic
 s Got betrayed by their conscience

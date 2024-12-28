@@ -100,11 +100,11 @@ func happening(code):
 		$"light-fx/fire/AnimationPlayer".animation_finished.connect(func(name): $"light-fx/fire/AnimationPlayer".play("fire"))
 		$"light-fx/fire/AnimationPlayer".play("start_fire")
 	elif code == 'SMOKE':
-		$"light-fx/fire/AnimationPlayer".stop()
-		$"light-fx/fire".visible = false
 		$WorldEnvironment.environment.volumetric_fog_enabled = true
 		$WorldEnvironment/AnimationPlayer.play("smoke")
 	elif code == 'FLASHLIGHT':
+		$"light-fx/fire/AnimationPlayer".stop()
+		$"light-fx/fire".visible = false
 		$"light-fx/flashlights".visible = true
 		for bubble in [$RoomPlayer/Bubbles/NormalBubbles/Sarah, $RoomPlayer/Bubbles/NormalBubbles/Alex, $RoomPlayer/Bubbles/NormalBubbles/Mitchell]:
 			bubble.font_size = 35
@@ -114,7 +114,9 @@ func happening(code):
 		$Sun/AnimationPlayer.play("rise")
 		$WorldEnvironment.environment.volumetric_fog_density = 0.1
 		$RoomPlayer/Bubbles/NormalBubbles/Alex.font_size = 52
+		$RoomPlayer/Node/cabinet_pivot/Cabinet2/StaticBody3D/CollisionShape3D.disabled = false
 	elif code == 'END':
+		$"light-fx/backup".visible = false
 		$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.backup_mode(false)
 		$RoomPlayer/Node/HopOver/CollisionShape3D.disabled = false
 		$Player.allow_interaction()
