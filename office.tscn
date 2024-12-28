@@ -343,7 +343,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.55036, 0.616771, -1.43881)
 [node name="RoomPlayer" type="Node" parent="."]
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="RoomPlayer"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.03761, 1.858, 1.2)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.03761, 1.858, 1.20545)
 material_override = ExtResource("2_x8il0")
 mesh = SubResource("BoxMesh_k2inx")
 skeleton = NodePath("../../RoomSarah")
@@ -440,19 +440,29 @@ autowrap_mode = 2
 width = 400.0
 
 [node name="NormalBubbles" type="Node3D" parent="RoomPlayer/Bubbles"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 1.10734, 0)
 visible = false
 
 [node name="Sarah" type="Label3D" parent="RoomPlayer/Bubbles/NormalBubbles"]
-transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.608053, 0)
-text = "Sarah Text"
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.224989, -0.0445004, 0.220912)
+pixel_size = 0.003
+font_size = 40
+outline_size = 7
+autowrap_mode = 2
 
 [node name="Alex" type="Label3D" parent="RoomPlayer/Bubbles/NormalBubbles"]
-transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, -0.552955, 0)
-text = "Alex Text"
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.224989, -0.751257, 0.220912)
+pixel_size = 0.003
+font_size = 40
+outline_size = 7
+autowrap_mode = 2
 
 [node name="Mitchell" type="Label3D" parent="RoomPlayer/Bubbles/NormalBubbles"]
-transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -0.000774384, 0, 0.0112728)
-text = "Mitchell Text"
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.224216, 0.6644, 0.232185)
+pixel_size = 0.003
+font_size = 40
+outline_size = 7
+autowrap_mode = 2
 
 [node name="Node" type="Node" parent="RoomPlayer"]
 
@@ -600,7 +610,7 @@ use_collision = true
 size = Vector3(20, 8, 3)
 
 [node name="Player" parent="." instance=ExtResource("2_yonry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85621, 0.954457, 4.65284)
+transform = Transform3D(0.626073, 0, 0.779764, 0, 1, 0, -0.779764, 0, 0.626073, -0.344316, 0.954457, 5.2534)
 
 [node name="lights" type="Node3D" parent="."]
 visible = false
@@ -838,6 +848,10 @@ mesh = SubResource("BoxMesh_xirry")
 
 [node name="Cabinet" parent="otherstuff" instance=ExtResource("10_u1fl4")]
 transform = Transform3D(-0.171052, 0, -0.985262, 0, 1, 0, 0.985262, 0, -0.171052, -2.01967, 0.998146, -2.45217)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="otherstuff"]
+transform = Transform3D(-0.123601, -0.000431404, 0.992332, 0.992326, 0.00346387, 0.123601, -0.00349063, 0.999994, -4.33762e-08, -9.4574, 0.579117, -1.65678)
+mesh = SubResource("BoxMesh_fxcaj")
 
 [editable path="RoomPlayer/Node/cabinet_pivot/Cabinet2"]
 [editable path="Player"]

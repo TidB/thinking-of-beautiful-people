@@ -24,7 +24,7 @@ func _ready() -> void:
 	Global.connect("pause", self.pause_unpause)
 	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/Node/AnimationPlayer.play("close"))
 	$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.start_main_dialogue.connect(self.start_main)
-	#switch_camera()
+	switch_camera()
 
 func pause_unpause(should_pause):
 	if not should_pause:
@@ -44,4 +44,4 @@ func start_main():
 	$RoomPlayer/Node/cabinet_pivot.visible = true
 	$RoomPlayer/Node/AnimationPlayer.play("break")
 	$RoomPlayer/Bubbles/NormalBubbles.visible = true
-	$RoomPlayer/Bubbles.start
+	$RoomPlayer/Bubbles.start()
