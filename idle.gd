@@ -4,9 +4,9 @@ signal start_main_dialogue
 const DIALOGUE_TRIGGER = 100
 var triggered = false
 
-var current_capacity = 5
+var current_capacity = 100 #5
 var current_charging_rate = 0
-var current_charge = 1
+var current_charge = 100#1
 
 var charge_record = 0
 

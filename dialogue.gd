@@ -43,9 +43,6 @@ func _ready():
 	add_to_group("dialogue")
 	timer = Timer.new()
 	add_child(timer)
-	#blink_timer = Timer.new()
-	#blink_timer.connect("timeout", self, "_on_blink_timer_timeout")
-	#add_child(blink_timer)
 	$activator.body_entered.connect(_on_body_entered_dialogue)
 
 func start():
@@ -76,7 +73,8 @@ func parse_dialogue(filename):
 			continue
 			#current_time = line.split(" ")[1]
 		elif line.begins_with("/"):
-			var action = line.split(" ")[1]
+			var action = line.split(" ")[1] # TODO: Custom pause length?
+			dialogue[current_time].append([action])
 #			if action == "FADE":
 #				dialogue[current_time].append([Action.FADE])
 		elif line.begins_with("="):
@@ -120,49 +118,21 @@ func play(dialogue, intro):
 			last_line = Time.get_ticks_msec()
 			set_text(line[1], line[0], intro)
 
-			#if line[0] == Action.SARAH:
-				#set_text(line[1], line[0], intro)
-			#elif line[0] == Action.MITCHELL:
-				#if intro:
-					#$IntroBubbles/Sarah.text = line[1]
-			#elif line[0] == Action.ALEX:
-				#if intro:
-					#$IntroBubbles/Sarah.text = line[1]
-			#emit_signal("show", line[1])
-#
-#			last_line = Time.get_ticks_msec()
-#
-			# TODO: Min wait time
 			var word_count = len(line[1].split(" "))
 			var reading_time = max(1.5, word_count / 225.0 * 60) / Global.TEXT_SPEED
 
 			print(word_count, " words, equals ", reading_time, " seconds")
 			timer.start(reading_time) 
 			await timer.timeout
+		elif line[0] == 'PAUSE':
+			set_text('', -1, intro)
+			timer.start(5)
+			await timer.timeout
 		else:
+			print("emitting ", line[0])
 			happening.emit(line[0])
 			
 	set_text('', -1, intro)
-
-#		elif line[0] == Action.FADE:
-#			$TweenFade.interpolate_property($Fade, "color", Color(0, 0, 0, 0), Color(0, 0, 0, 1), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-#			$TweenFade.start()
-#
-#			await $TweenFade.tween_completed
-#
-#			$TweenFade.interpolate_property($Fade, "color", Color(0, 0, 0, 1), Color(0, 0, 0, 0), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-#			$TweenFade.start()
-#
-#			timer.start(1)
-#			await timer.timeout
-	
-#	$TweenFade.interpolate_property($Fade, "color", Color(0, 0, 0, 0), Color(0, 0, 0, 1), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-#	$TweenFade.start()
-#
-#	await $TweenFade.tween_completed
-	
-	#timer.start(1)
-	#await timer.timeout
 
 func _on_body_entered_dialogue(body):
 	if not played_intro:

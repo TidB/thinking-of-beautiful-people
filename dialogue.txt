@@ -2,12 +2,11 @@
 # a Alex
 # m Mitchell
 
-# cabinet crashes against the door door, smashes it open, falls into the room
-
 m Ah crap, so sorry!
 a Mitchell?!
 m Yeah sorry I’ll just.. try to get it out of the way…
 s You’re a master of first impressions
+s If that cabinet fell into the sea you would've started a tsunami
 m They’ll survive
 a When I started here, you broke my desk trying to drag it somewhere you said had a “better view”
 

@@ -48,13 +48,12 @@ func start_main():
 	$RoomPlayer/Bubbles.start()
 	
 func happening(code):
-	if code == 'PAUSE':
-		await get_tree().create_timer(10)
-	elif code == 'GARBAGE':
+	print("happening:", code)
+	if code == 'GARBAGE':
 		$"light-fx/garbage".visible = true
 		$"light-fx/garbage/AnimationPlayer".play("garbage")
 		
-		$Sun/AnimationPlayer.start("wander")
+		$Sun/AnimationPlayer.play("wander")
 	elif code == 'EMERGENCY':
 		$"light-fx/garbage".visible = false
 		$"light-fx/emergency".visible = true
@@ -67,7 +66,7 @@ func happening(code):
 		
 		$"light-fx/streetlamp".visible = false
 		$"light-fx/car/Path3D/PathFollow3D/car".visible = true
-		$"light-fx/car/Path3D/PathFollow3D/AnimationPlayer".start("i_drive")
+		$"light-fx/car/Path3D/PathFollow3D/AnimationPlayer".play("i_drive")
 	elif code == 'BLACKOUT':
 		$"light-fx/car/Path3D/PathFollow3D/car".visible = false
 	elif code == 'BACKUP':

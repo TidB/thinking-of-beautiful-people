@@ -696,6 +696,9 @@ size = Vector3(20, 8, 3)
 [node name="Normaldesk" parent="geo" instance=ExtResource("16_nas1y")]
 transform = Transform3D(-0.173579, 0, 0.98482, 0, 1, 0, -0.98482, 0, -0.173579, 7.17168, 0.817045, 5.37958)
 
+[node name="Normaldesk2" parent="geo" instance=ExtResource("16_nas1y")]
+transform = Transform3D(0.0601601, 2.03268e-08, 0.998189, 8.60957e-08, -1, 1.51748e-08, 0.998189, 8.50268e-08, -0.0601601, 7.17168, 0.870091, 5.37958)
+
 [node name="Player" parent="." instance=ExtResource("2_yonry")]
 transform = Transform3D(0.626073, 0, 0.779764, 0, 1, 0, -0.779764, 0, 0.626073, -0.344316, 0.954457, 5.2534)
 
@@ -709,7 +712,6 @@ height = 5.0
 material = SubResource("StandardMaterial3D_ea4pj")
 
 [node name="UI" parent="." instance=ExtResource("6_w7hbt")]
-mouse_filter = 1
 
 [node name="light-fx" type="Node" parent="."]
 
