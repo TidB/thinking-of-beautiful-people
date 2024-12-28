@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=65 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -139,6 +139,9 @@ sky_material = SubResource("PhysicalSkyMaterial_uepr1")
 [sub_resource type="Environment" id="Environment_pbto2"]
 background_mode = 2
 sky = SubResource("Sky_aih42")
+ambient_light_source = 2
+ambient_light_color = Color(0, 0, 0.25098, 1)
+ambient_light_energy = 0.0
 tonemap_mode = 3
 glow_enabled = true
 glow_levels/1 = 1.0
@@ -146,8 +149,83 @@ glow_levels/2 = 1.0
 glow_levels/4 = 1.0
 glow_levels/6 = 1.0
 glow_levels/7 = 1.0
-volumetric_fog_density = 0.1
+volumetric_fog_density = 0.4
+volumetric_fog_length = 30.0
 volumetric_fog_temporal_reprojection_amount = 0.99
+
+[sub_resource type="Animation" id="Animation_78t3i"]
+resource_name = "wander"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.992919, 0.0404876, 0.0646677, -0.091054, 0.5, 1, 0.968098, 0.0303501, 0.0700005, -0.238675)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../WorldEnvironment:environment:ambient_light_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_6615c"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.992919, 0.0404876, 0.0646677, -0.091054)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../WorldEnvironment:environment:ambient_light_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ugg1"]
+_data = {
+"RESET": SubResource("Animation_6615c"),
+"wander": SubResource("Animation_78t3i")
+}
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_48kiw"]
 noise_type = 3
@@ -545,14 +623,20 @@ data = ExtResource("1_dof1c")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_pbto2")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.988358, 0.0921783, 0.121046, 0.0686255, -0.98014, 0.186055, 0.135793, -0.175582, -0.975054, 4.37225, 0, 0)
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.988358, 0.0921784, 0.121046, 0.0686254, -0.98014, 0.186055, 0.135793, -0.175582, -0.975055, 4.37225, 0, 0)
 light_color = Color(1, 0.870588, 0.764706, 1)
 light_energy = 2.0
 light_angular_distance = 0.5
 shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 30.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sun"]
+libraries = {
+"": SubResource("AnimationLibrary_5ugg1")
+}
+speed_scale = 0.01
 
 [node name="geo" type="Node" parent="."]
 
@@ -608,6 +692,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.319, 7.5)
 material_override = ExtResource("2_x8il0")
 use_collision = true
 size = Vector3(20, 8, 3)
+
+[node name="Normaldesk" parent="geo" instance=ExtResource("16_nas1y")]
+transform = Transform3D(-0.173579, 0, 0.98482, 0, 1, 0, -0.98482, 0, -0.173579, 7.17168, 0.817045, 5.37958)
 
 [node name="Player" parent="." instance=ExtResource("2_yonry")]
 transform = Transform3D(0.626073, 0, 0.779764, 0, 1, 0, -0.779764, 0, 0.626073, -0.344316, 0.954457, 5.2534)
@@ -774,11 +861,11 @@ shadow_enabled = true
 omni_range = 10.75
 omni_attenuation = 0.387
 
-[node name="flashlights" type="Node" parent="light-fx"]
+[node name="flashlights" type="Node3D" parent="light-fx"]
+visible = false
 
 [node name="flashlight" type="SpotLight3D" parent="light-fx/flashlights"]
 transform = Transform3D(-0.947963, 0, -0.31838, 0, 1, 0, 0.31838, 0, -0.947963, 4.39801, 0.864589, 0)
-visible = false
 light_energy = 2.0
 light_volumetric_fog_energy = 10.0
 spot_range = 13.874
@@ -787,7 +874,6 @@ spot_angle = 5.0
 
 [node name="flashlight2" type="SpotLight3D" parent="light-fx/flashlights"]
 transform = Transform3D(-0.973107, 0, 0.230355, -0.0546975, 0.9714, -0.231063, -0.223767, -0.237449, -0.945276, 4.39801, 0.864589, 0)
-visible = false
 light_energy = 2.0
 light_volumetric_fog_energy = 10.0
 spot_range = 13.874
@@ -853,5 +939,10 @@ transform = Transform3D(-0.171052, 0, -0.985262, 0, 1, 0, 0.985262, 0, -0.171052
 transform = Transform3D(-0.123601, -0.000431404, 0.992332, 0.992326, 0.00346387, 0.123601, -0.00349063, 0.999994, -4.33762e-08, -9.4574, 0.579117, -1.65678)
 mesh = SubResource("BoxMesh_fxcaj")
 
+[node name="Box" parent="." instance=ExtResource("15_6xql5")]
+transform = Transform3D(0.624261, 0, -0.781215, 0, 1, 0, 0.781215, 0, 0.624261, 7.30795, 0.392371, 2.35037)
+
+[node name="Box2" parent="." instance=ExtResource("15_6xql5")]
+transform = Transform3D(-0.964511, 0, -0.264042, 0, 1, 0, 0.264042, 0, -0.964511, 7.32169, 0.392371, 3.3646)
+
 [editable path="RoomPlayer/Node/cabinet_pivot/Cabinet2"]
-[editable path="Player"]

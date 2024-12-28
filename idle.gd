@@ -8,6 +8,8 @@ var current_capacity = 5
 var current_charging_rate = 0
 var current_charge = 0
 
+var charge_record = 0
+
 class Item:
 	var label: String
 	var unlocked_after: int
@@ -52,6 +54,25 @@ var bought_chargers = {} # key: index of charging_buttons, value: amount bought
 var bought_capacity = {}
 var last_update_for_index = {}
 
+func charge_rate():
+	var rate = 0
+	for index in bought_chargers:
+		rate += bought_chargers[index] * charging_buttons[index].charge_amount * charging_buttons[index].charges_per_second
+	return rate
+
+# Let's assume a consumption rate of 1 J/s
+func to_time(charge):
+	if charge >= 3600 * 24 * 365.25:
+		return str(charge / (3600 * 24 * 365.25)) + " years"
+	if charge >= 3600 * 24:
+		return str(charge / (3600 * 24)) + "days"
+	if charge >= 3600:
+		return str(charge / 3600) + " hours"
+	if charge >= 60:
+		return str(charge / 60) + " minutes"
+	else:
+		return str(charge) + " seconds"
+
 func _ready() -> void:
 	for i in charging_buttons.size():
 		bought_chargers[i] = 0
@@ -78,7 +99,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		$HBoxContainer/MarginContainer3/CapacityExceeded.visible = false
 	current_charge = min(current_capacity, current_charge)
-	$HBoxContainer/MarginContainer3/StoredCounter.text = "%d" % (current_charge)
+	$HBoxContainer/MarginContainer3/StoredCounter.text = "Stored Energy: %d J\nLasts for: %d seconds" % [current_charge, to_time(current_charge)]
+	charge_record = max(charge_record, current_charge)
 	
 	if current_charge > DIALOGUE_TRIGGER and not triggered:
 		triggered = true
@@ -93,18 +115,23 @@ func generate_buttons():
 			parent.remove_child(child)
 			child.queue_free()
 	
+	$HBoxContainer/MarginContainer/Charging/ChargingRate.text = "Charging Rate:\n" + str(charge_rate()) + " J/s"
 	var i = 0
 	for b in charging_buttons:
+		if current_charge * 2 < b.unlocked_after:
+			continue
 		var button = Button.new()
-		button.text = b.label + " (" + str(bought_chargers[i]) + " owned)\n(" + str(b.charge_amount * b.charges_per_second) + " per second)"
+		button.text = b.label + "\n(" + str(b.charge_amount * b.charges_per_second) + " J/s, " + str(bought_chargers[i]) + " owned)"
 		button.pressed.connect(func(): self.buy_charger(i))
 		$HBoxContainer/MarginContainer/Charging.add_child(button)
 		i += 1
 
 	i = 0
 	for b in capacity_buttons:
+		if current_charge * 2 < b.unlocked_after:
+			continue
 		var button = Button.new()
-		button.text = b.label + " (" + str(bought_capacity[i]) + " owned)"
+		button.text = b.label + "\n(" + str(bought_capacity[i]) + " owned)"
 		button.pressed.connect(func(): self.buy_capacity(i))
 		$HBoxContainer/MarginContainer2/Capacity.add_child(button)
 		i += 1
@@ -122,5 +149,6 @@ func buy_capacity(index):
 	bought_capacity[index] += 1
 	
 	current_capacity += capacity_buttons[index].capacity
+	$HBoxContainer/MarginContainer2/Capacity/CapacityCounter.text = "Maximum Capacity:\n" + str(current_capacity) + " J"
 
 # TODO: 

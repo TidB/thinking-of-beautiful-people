@@ -24,6 +24,7 @@ func _ready() -> void:
 	Global.connect("pause", self.pause_unpause)
 	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/Node/AnimationPlayer.play("close"))
 	$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.start_main_dialogue.connect(self.start_main)
+	$RoomPlayer/Bubbles.happening.connect(self.happening)
 	switch_camera()
 
 func pause_unpause(should_pause):
@@ -45,3 +46,48 @@ func start_main():
 	$RoomPlayer/Node/AnimationPlayer.play("break")
 	$RoomPlayer/Bubbles/NormalBubbles.visible = true
 	$RoomPlayer/Bubbles.start()
+	
+func happening(code):
+	if code == 'PAUSE':
+		await get_tree().create_timer(10)
+	elif code == 'GARBAGE':
+		$"light-fx/garbage".visible = true
+		$"light-fx/garbage/AnimationPlayer".play("garbage")
+		
+		$Sun/AnimationPlayer.start("wander")
+	elif code == 'EMERGENCY':
+		$"light-fx/garbage".visible = false
+		$"light-fx/emergency".visible = true
+		$"light-fx/emergency/AnimationPlayer".play("strobe")
+	elif code == 'STREETLAMPS':
+		$"light-fx/emergency".visible = false
+		$"light-fx/streetlamp".visible = true
+	elif code == 'CAR':
+		$Sun.visible = false
+		
+		$"light-fx/streetlamp".visible = false
+		$"light-fx/car/Path3D/PathFollow3D/car".visible = true
+		$"light-fx/car/Path3D/PathFollow3D/AnimationPlayer".start("i_drive")
+	elif code == 'BLACKOUT':
+		$"light-fx/car/Path3D/PathFollow3D/car".visible = false
+	elif code == 'BACKUP':
+		pass
+	elif code == 'EXPLOSION':
+		$"light-fx/explosion".visible = true
+	elif code == 'FIREWORKS':
+		$"light-fx/explosion".visible = false
+		$"light-fx/fireworks".visible = true
+		$"light-fx/fireworks".start()
+	elif code == 'FIRE':
+		$"light-fx/fireworks".stop()
+		$"light-fx/fireworks".visible = false
+		$"light-fx/fire".visible = true
+	elif code == 'SMOKE':
+		$"light-fx/fire".visible = false
+		$WorldEnvironment.environment.volumetric_fog_enabled = true
+	elif code == 'FLASHLIGHT':
+		$"light-fx/flashlights".visible = true
+	elif code == 'NIGHT':
+		$"light-fx/flashlights".visible = false
+	else:
+		print('unknown code', code)

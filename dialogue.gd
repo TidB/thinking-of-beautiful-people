@@ -10,6 +10,7 @@ enum Action {
 
 signal advance
 signal finished
+signal happening(code)
 
 var played_intro = false
 var last_line = Time.get_ticks_msec()
@@ -118,6 +119,7 @@ func play(dialogue, intro):
 				
 			last_line = Time.get_ticks_msec()
 			set_text(line[1], line[0], intro)
+
 			#if line[0] == Action.SARAH:
 				#set_text(line[1], line[0], intro)
 			#elif line[0] == Action.MITCHELL:
@@ -137,6 +139,8 @@ func play(dialogue, intro):
 			print(word_count, " words, equals ", reading_time, " seconds")
 			timer.start(reading_time) 
 			await timer.timeout
+		else:
+			happening.emit(line[0])
 			
 	set_text('', -1, intro)
 

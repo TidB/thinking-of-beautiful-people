@@ -30,6 +30,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_aspeu")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,12 +60,18 @@ theme_override_constants/margin_bottom = 10
 [node name="Charging" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/Charging"]
+[node name="ChargingRate" type="Label" parent="HBoxContainer/MarginContainer/Charging"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
 text = "Charging rate:
 1 A/s"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/MarginContainer/Charging"]
+layout_mode = 2
+text = "Manually insert a battery (0 owned)
+(1 per second)"
 
 [node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -73,7 +80,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
-text = "Stored energy: x Ah
+text = "Stored energy: 0 Wh
 Lasts for: 0 seconds"
 horizontal_alignment = 1
 
@@ -97,6 +104,10 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
-text = "Maximum capacity:
-10 seconds"
+text = "Maximum Capacity:
+5 J"
 horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/MarginContainer2/Capacity"]
+layout_mode = 2
+text = "Add a powerbank (0 owned)"

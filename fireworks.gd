@@ -34,8 +34,9 @@ func on(timer, i):
 	
 func blink(timer, i):
 	self.get_children()[i].visible = false
-	timer.wait_time = randf() * 1.5
-	timers[i].start()
+	if not stopped:
+		timer.wait_time = randf() * 1.5
+		timers[i].start()
 	
 func stop():
 	stopped = true

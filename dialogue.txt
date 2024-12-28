@@ -13,7 +13,7 @@ a When I started here, you broke my desk trying to drag it somewhere you said ha
 
 / PAUSE
 
-a Better view than their office
+a Better view than their office at least
 a No sunlight is a bit sad
 m I mean, this whole floor is mostly below ground. 
 m The windows are my lifeline
@@ -59,7 +59,7 @@ m Don‘t worry
 
 m I feel like we‘ll need the emergency power today
 
-/ IT‘S GETTING DARK, STREET LAMPS TURN ON (constant, orangish glow)
+/ STREETLAMPS
 
 m Why is it so bright?
 m Aren‘t you worried?
