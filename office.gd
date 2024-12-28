@@ -19,13 +19,15 @@ func _ready() -> void:
 	for i in interactables:
 		i.show_hint.connect($UI._on_show_hint)
 		i.hide_hint.connect($UI._on_hide_hint)
-		i.switch_camera.connect(self.switch_camera)
+	$RoomPlayer/Chair/SitDown.switch_camera.connect(self.switch_camera)
+	$RoomPlayer/Node/HopOver.switch_final_camera.connect(self.switch_final_camera)
 
 	Global.connect("pause", self.pause_unpause)
 	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/Node/AnimationPlayer.play("close"))
 	$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.start_main_dialogue.connect(self.start_main)
 	$RoomPlayer/Bubbles.happening.connect(self.happening)
 	switch_camera()
+	#switch_final_camera()
 
 func pause_unpause(should_pause):
 	if not should_pause:
@@ -40,6 +42,11 @@ func switch_camera():
 	$Player.sit()
 	$Player.position = Vector3(1.314, 0.482, 4.465)
 	$Player.rotation_degrees = Vector3(0, -90, 0)
+	
+func switch_final_camera():
+	$Player.stand()
+	$Player.position = Vector3(4.352, 0.875, 0.097)
+	$Player.rotation = Vector3(0, 0, 0)
 
 func start_main():
 	$RoomPlayer/Node/cabinet_pivot.visible = true
@@ -52,6 +59,7 @@ func happening(code):
 	if code == 'GARBAGE':
 		$"light-fx/garbage".visible = true
 		$"light-fx/garbage/AnimationPlayer".play("garbage")
+		$"light-fx/garbage/AnimationPlayer2".play("move_garbage")
 		
 		$Sun/AnimationPlayer.animation_finished.connect(func(): $Sun.visible = false)
 		$Sun/AnimationPlayer.play("wander")
@@ -59,6 +67,7 @@ func happening(code):
 		$"light-fx/garbage".visible = false
 		$"light-fx/emergency".visible = true
 		$"light-fx/emergency/AnimationPlayer".play("strobe")
+		$"light-fx/emergency/AnimationPlayer2".play("move_emergency")
 	elif code == 'STREETLAMPS':
 		$"light-fx/emergency".visible = false
 		$"light-fx/streetlamp".visible = true
@@ -71,6 +80,7 @@ func happening(code):
 	elif code == 'BLACKOUT':
 		$"light-fx/car/Path3D/PathFollow3D/car".visible = false
 		$"light-fx/light".visible = false
+		$"light-fx/streetlamp".visible = false
 	elif code == 'BACKUP':
 		$"light-fx/backup".visible = true
 	elif code == 'EXPLOSION':
@@ -86,14 +96,24 @@ func happening(code):
 		$"light-fx/streetlamp".visible = false
 	elif code == 'FIRE':
 		$"light-fx/fire".visible = true
+		$"light-fx/fire/AnimationPlayer".animation_finished.connect(func(name): $"light-fx/fire/AnimationPlayer".play("fire"))
+		$"light-fx/fire/AnimationPlayer".play("start_fire")
 	elif code == 'SMOKE':
+		$"light-fx/fire/AnimationPlayer".stop()
 		$"light-fx/fire".visible = false
 		$WorldEnvironment.environment.volumetric_fog_enabled = true
 	elif code == 'FLASHLIGHT':
 		$"light-fx/flashlights".visible = true
+		for bubble in [$RoomPlayer/Bubbles/NormalBubbles/Sarah, $RoomPlayer/Bubbles/NormalBubbles/Alex, $RoomPlayer/Bubbles/NormalBubbles/Mitchell]:
+			bubble.font_size = 35
 	elif code == 'NIGHT':
 		$"light-fx/flashlights".visible = false
 		$Sun.visible = true
 		$Sun/AnimationPlayer.play("rise")
+		$WorldEnvironment.environment.volumetric_fog_density = 0.1
+		$RoomPlayer/Bubbles/NormalBubbles/Alex.font_size = 52
+	elif code == 'END':
+		$RoomPlayer/Node/HopOver/CollisionShape3D.disabled = false
+		$Player.allow_interaction()
 	else:
 		print('unknown code', code)

@@ -10,6 +10,7 @@ var rotation_helper
 var highlighted_obj
 
 var sitting = false
+var interacting = true
 
 signal forward_event(event)
 
@@ -28,9 +29,10 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
+	if interacting:
+		check_near_interactable() 
+
 	if not sitting:
-		check_near_interactable()
-		
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 
@@ -93,4 +95,11 @@ func _input(event):
 func sit():
 	$CollisionShape3D.disabled = true
 	sitting = true
+	interacting = false
 			
+func allow_interaction():
+	interacting = true
+	
+func stand():
+	sitting = false
+	$CollisionShape3D.disabled = false

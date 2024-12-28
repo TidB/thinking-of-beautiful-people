@@ -3,7 +3,7 @@ extends StaticBody3D
 signal interacted(state)
 signal show_hint(text)
 signal hide_hint
-signal switch_camera
+signal switch_final_camera
 signal close_door
 
 var used = false
@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	pass
 
 func highlight():
-	show_hint.emit('SIT DOWN')
+	show_hint.emit('CLIMB OVER')
 	
 func remove_highlight():
 	hide_hint.emit()
@@ -27,8 +27,7 @@ func use():
 		return
 		
 	remove_highlight()
-	switch_camera.emit()
-	close_door.emit()
+	switch_final_camera.emit()
 	self.visible = false
 	used = true
 

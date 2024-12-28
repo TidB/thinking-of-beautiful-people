@@ -1,0 +1,6 @@
+[gd_resource type="SystemFont" format=3 uid="uid://dqy0idt4v0jj8"]
+
+[resource]
+font_names = PackedStringArray("Monospace")
+font_weight = 575
+generate_mipmaps = true

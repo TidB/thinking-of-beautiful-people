@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	pass
 
 func highlight():
-	show_hint.emit('SIT DOWN')
+	show_hint.emit('LEAVE')
 	
 func remove_highlight():
 	hide_hint.emit()
@@ -27,10 +27,10 @@ func use():
 		return
 		
 	remove_highlight()
-	switch_camera.emit()
-	close_door.emit()
 	self.visible = false
 	used = true
+	
+	get_tree().change_scene_to_file("res://end.tscn")
 
 func _on_show_hint(text):
 	$HUD/CenterContainer/Hint.text = text

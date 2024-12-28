@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3tv2f67hv38r"]
+
+[ext_resource type="SystemFont" uid="uid://bdfajn5eki30k" path="res://fonts/sarah.tres" id="1_p1xl8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rp7s6"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="End" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rp7s6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -228.485
+offset_bottom = 271.515
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_p1xl8")
+theme_override_font_sizes/normal_font_size = 196
+bbcode_enabled = true
+text = "[center]THANKS FOR PLAYING[/center]"
+scroll_active = false

@@ -14,9 +14,10 @@ a When I started here, you broke my desk trying to drag it somewhere you said ha
 
 a Better view than their office at least
 a No sunlight is a bit sad
-m I mean, this whole floor is mostly below ground. 
+m I mean, this whole floor is mostly below ground
 m The windows are my lifeline
-s The sunrises are always pretty from here
+a The sunrises are always pretty from here
+s If I had found a lease with a better view, I would've gotten it
 
 / GARBAGE
 
@@ -24,15 +25,18 @@ m The garbage trucks seem to come often
 s A bit too often
 a What, you have a history with garbage trucks?
 m Why would they come more often?
-m Someone would need to produce more garbage
-m Maybe there‘s an unknown subtenant?
 
 / PAUSE
 
 m You’re sure they’re a good fit for us, right?
-s Wouldn’t have hired them otherwise.
+s Wouldn’t have hired them otherwise
+a Okay sorry, but why were you suspicious of the garbage truck?
+m Someone would need to produce more garbage
+m Maybe there‘s an unknown subtenant?
 
 / EMERGENCY
+
+/ PAUSE
 
 a I don’t like that they stopped here
 m Not for us this time, is it?
@@ -58,13 +62,17 @@ m Don‘t worry
 
 m I feel like we‘ll need the emergency power today
 
+/ PAUSE
+
 / STREETLAMPS
+
+/ PAUSE
 
 m Why is it so bright?
 m Aren‘t you worried?
 a About what?
-m Alex, look at these street lamps. 
-m They can look inside and spy on us. 
+m Alex, look at these street lamps
+m They can look inside and spy on us
 s We had some issues with that previously
 s I think
 s Not that it was ever cleared up
@@ -76,21 +84,34 @@ a Feels like we might need it
 m They‘re doing a good job
 m Just hope they‘re on our side
 
+/ PAUSE
+
 / CAR
 
-a Is that guy coming straight towards us??
-s The street just points towards us
-a … it‘s way too straight. There‘s no indicator
-a They‘re trying to crashing into us
+m Can't wait for the new year honestly
+s I can
+s This year was good, wasn't it?
+m Mmh
+a Is that guy driving straight towards us?
+a There!
+m It's normal, isn't it? We're next to an intersection
+a … it‘s way too straight. And too fast
+s I don't like this
+a They‘re trying to crash into us
+s Get down!
 
 # By now, the car should have swerved
 
 m Faked out. Intimidation tactic
+s Got betrayed by their conscience
+a Next time he'll drive into us. Burn down the office. And get away with it.
+
+/ PAUSE
 
 / BLACKOUT
 
 a Ah shit
-m There we go. Come on.
+m There we go. Come on
 m Prepare for the worst
 
 / BACKUP 
@@ -101,9 +122,11 @@ a The outages have become more frequent, right?
 s Feels like it
 m I believe the city is cutting our power now intentionally
 a They‘re probably diverting power to the datacenters just out of town
-s Probably both.
+s Probably both
 
-# sTODO: Stuff about them previously wanting to go out for celebrations
+# TODO: Stuff about them previously wanting to go out for celebrations
+
+/ PAUSE
 
 / EXPLOSION
 
@@ -117,25 +140,31 @@ s Fireworks…
 s NYE after all
 m No way those are just fireworks
 m I'm blocking the windows
+s So many people on the streets. Sounds like they're celebrating
+m They're not celebrating, they're rioting. I can hear their voices closing in on us
+a Why did you bring me into this?
 
 / BLIND
 
-
+m There. We're safe, for now
 
 / FIRE
 
 a What about the new hire?
 m They left a while ago I think
 s They‘re probably in on it
+s Snuck out
+a Why would they–
+
 
 / SMOKE
 
 # (RADIO CHATTER)
 
 m Ah fuck
+m We got smoked out like rats
+a They're gonna clean up later and carry our bodies to the landfill
 s Shut up!
-
-# (quietly, smaller font size?)
 
 a I think the firemen are looking for us
 s They‘re not firemen
@@ -143,7 +172,7 @@ m They want to see us dead
 m Shit, if we only prepared for this
 m Only got this shitty emergency power
 s They‘re getting close
-s Hold your breath.
+s Hold your breath
 s Don‘t let them see you
 a What if they catch us?
 m Alex, give me the hammer
@@ -158,9 +187,21 @@ m To think they would go to such lengths…
 
 # LOW BASS DROWNING OUT EVERYTHING ELSE, SLIGHTLY FADES OUT AS THE SUN COMES UP
 
-a Hey, sorry for last night
-a Let myself get carried away.
+/ PAUSE
+/ PAUSE
+/ PAUSE
+/ PAUSE
+/ PAUSE
+/ PAUSE
+
+a What a night
+a Let myself get carried away
 a I guess I sometimes don’t need to react that quickly
 a Just see where it goes
 a It‘ll turn out differently anyway
+
+/ PAUSE
+/ END
+
+a Well, let's get out of here
 a And happy new year!

@@ -42,8 +42,9 @@ var charging_buttons = [
 	ChargingButton.new(0, 1, 1, 0.5, "Manually insert a battery"),
 	ChargingButton.new(10, 5, 2, 2, "Hire someone to turn a crank"),
 	ChargingButton.new(50, 25, 4, 6, "Hire a hamster"),
-	ChargingButton.new(50, 100, 6, 10, "Tap a neighbor's wire"),
-	ChargingButton.new(50, 250, 20, 20, "Keep a pet thunderstorm"),
+	ChargingButton.new(50, 100, 8, 15, "Tap a neighbor's wire"),
+	ChargingButton.new(50, 250, 20, 50, "Keep a pet thunderstorm"),
+	ChargingButton.new(50, 250, 40, 100, "Build a Dyson Sphere (or multiple)"),
 ]
 
 var capacity_buttons = [
@@ -52,6 +53,7 @@ var capacity_buttons = [
 	CapacityButton.new(50, 25, 1000, "Flywheel"),
 	CapacityButton.new(50, 100, 25000, "Fuel Cell"),
 	CapacityButton.new(50, 250, 500000, "Pumped-Storage Power Plant"),
+	CapacityButton.new(50, 250, 500000, "Use the Earth as a Flywheel"),
 ]
 
 var bought_chargers = {} # key: index of charging_buttons, value: amount bought
