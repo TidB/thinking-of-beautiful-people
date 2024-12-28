@@ -53,6 +53,7 @@ func happening(code):
 		$"light-fx/garbage".visible = true
 		$"light-fx/garbage/AnimationPlayer".play("garbage")
 		
+		$Sun/AnimationPlayer.animation_finished.connect(func(): $Sun.visible = false)
 		$Sun/AnimationPlayer.play("wander")
 	elif code == 'EMERGENCY':
 		$"light-fx/garbage".visible = false
@@ -69,17 +70,21 @@ func happening(code):
 		$"light-fx/car/Path3D/PathFollow3D/AnimationPlayer".play("i_drive")
 	elif code == 'BLACKOUT':
 		$"light-fx/car/Path3D/PathFollow3D/car".visible = false
+		$"light-fx/light".visible = false
 	elif code == 'BACKUP':
-		pass
+		$"light-fx/backup".visible = true
 	elif code == 'EXPLOSION':
 		$"light-fx/explosion".visible = true
+		$"light-fx/explosion/AnimationPlayer".play("bang")
 	elif code == 'FIREWORKS':
 		$"light-fx/explosion".visible = false
 		$"light-fx/fireworks".visible = true
 		$"light-fx/fireworks".start()
-	elif code == 'FIRE':
+	elif code == 'BLIND':
 		$"light-fx/fireworks".stop()
 		$"light-fx/fireworks".visible = false
+		$"light-fx/streetlamp".visible = false
+	elif code == 'FIRE':
 		$"light-fx/fire".visible = true
 	elif code == 'SMOKE':
 		$"light-fx/fire".visible = false
@@ -88,5 +93,7 @@ func happening(code):
 		$"light-fx/flashlights".visible = true
 	elif code == 'NIGHT':
 		$"light-fx/flashlights".visible = false
+		$Sun.visible = true
+		$Sun/AnimationPlayer.play("rise")
 	else:
 		print('unknown code', code)

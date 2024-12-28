@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=70 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cq3gb7hbffjgn" path="res://assets/ladder.tscn" id="10_h7wbs"]
 [ext_resource type="PackedScene" uid="uid://cfuk10ug0ysds" path="res://assets/cabinet.tscn" id="10_u1fl4"]
 [ext_resource type="Script" path="res://light-emergency.gd" id="11_vr7wl"]
+[ext_resource type="VoxelGIData" uid="uid://b02fxqbm1h1ca" path="res://office.VoxelGIAfterDoor_data.res" id="12_4o1st"]
 [ext_resource type="Script" path="res://fireworks.gd" id="12_agqh3"]
 [ext_resource type="Script" path="res://dialogue.gd" id="13_hxx81"]
 [ext_resource type="PackedScene" uid="uid://c102fx7lcb6rw" path="res://assets/box.tscn" id="15_6xql5"]
@@ -221,9 +222,32 @@ tracks/2/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_apxf5"]
+resource_name = "rise"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0.5, 1, 0.99493, 0.0501129, 0.0575313, 0.065524, 1, 1, 0.992919, 0.0404876, 0.0646676, -0.091054)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ugg1"]
 _data = {
 "RESET": SubResource("Animation_6615c"),
+"rise": SubResource("Animation_apxf5"),
 "wander": SubResource("Animation_78t3i")
 }
 
@@ -238,7 +262,6 @@ bump_strength = 0.2
 noise = SubResource("FastNoiseLite_48kiw")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5r24t"]
-normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_yyxj7")
 
 [sub_resource type="BoxMesh" id="BoxMesh_nfoyx"]
@@ -258,17 +281,12 @@ normal_texture = SubResource("NoiseTexture2D_rl0q4")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbbpb"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea4pj"]
-emission_enabled = true
-emission = Color(0.772549, 0.843137, 1, 1)
-emission_energy_multiplier = 1.88
-
 [sub_resource type="Animation" id="Animation_gergk"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("light-fx/emergency:light_energy")
+tracks/0/path = NodePath("light-fx/emergency/emergency:light_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -300,10 +318,10 @@ tracks/0/path = NodePath("light-fx/garbage:light_energy")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.633448, 0.733448),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [2.963, 0.0]
+"values": [2.963, 0.0, 2.963, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_quqbv"]
@@ -312,11 +330,23 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("light-fx/emergency:light_energy")
+tracks/0/path = NodePath("light-fx/emergency/emergency:light_energy")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4.016, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("light-fx/emergency/emergency2:light_energy")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [4.016, 0.0]
@@ -350,6 +380,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("headlight:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [7.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("headlight:spot_attenuation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.9]
+}
 
 [sub_resource type="Animation" id="Animation_mmwdm"]
 resource_name = "i_drive"
@@ -366,11 +420,100 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.4, 1.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("headlight:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 19.9667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [7.0, 10.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("headlight:spot_attenuation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 19.9333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.9, 0.5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("headlight2:light_energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 19.9333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [7.0, 10.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("headlight2:spot_attenuation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 19.9333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.9, 0.5]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g2wd2"]
 _data = {
 "RESET": SubResource("Animation_huvym"),
 "i_drive": SubResource("Animation_mmwdm")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea4pj"]
+emission_enabled = true
+emission = Color(0.772549, 0.843137, 1, 1)
+emission_energy_multiplier = 11.96
+
+[sub_resource type="Animation" id="Animation_wrvpb"]
+resource_name = "bang"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.866667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [10.0, 0.2, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_82m2y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bx8pw"]
+_data = {
+"RESET": SubResource("Animation_82m2y"),
+"bang": SubResource("Animation_wrvpb")
 }
 
 [sub_resource type="BoxMesh" id="BoxMesh_ajxhk"]
@@ -549,10 +692,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25557, 0.0121416, 0.745864)
 visible = false
 
 [node name="Cabinet2" parent="RoomPlayer/Node/cabinet_pivot" instance=ExtResource("10_u1fl4")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0187206, 0.859866, -0.631636)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0187206, 0.859866, -0.631636)
+
+[node name="MeshInstance3D2" parent="RoomPlayer/Node/cabinet_pivot/Cabinet2" index="1"]
+gi_mode = 1
+
+[node name="MeshInstance3D3" parent="RoomPlayer/Node/cabinet_pivot/Cabinet2" index="2"]
+gi_mode = 1
 
 [node name="CollisionShape3D" parent="RoomPlayer/Node/cabinet_pivot/Cabinet2/StaticBody3D" index="0"]
 disabled = true
+
+[node name="MeshInstance3D4" parent="RoomPlayer/Node/cabinet_pivot/Cabinet2" index="4"]
+gi_mode = 1
+
+[node name="MeshInstance3D5" parent="RoomPlayer/Node/cabinet_pivot/Cabinet2" index="5"]
+gi_mode = 1
 
 [node name="hinge" type="Node3D" parent="RoomPlayer/Node"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 5.10893, 0.84837, 1.31342)
@@ -617,14 +772,22 @@ mesh = SubResource("BoxMesh_fxcaj")
 
 [node name="VoxelGI" type="VoxelGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835974, 0)
+subdiv = 2
 size = Vector3(21.835, 7.52, 18.885)
 data = ExtResource("1_dof1c")
+
+[node name="VoxelGIAfterDoor" type="VoxelGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835974, 0)
+visible = false
+subdiv = 2
+size = Vector3(21.835, 7.52, 18.885)
+data = ExtResource("12_4o1st")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_pbto2")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.988358, 0.0921784, 0.121046, 0.0686254, -0.98014, 0.186055, 0.135793, -0.175582, -0.975055, 4.37225, 0, 0)
+transform = Transform3D(0.988358, 0.0921784, 0.121046, 0.0686254, -0.98014, 0.186055, 0.135793, -0.175582, -0.975054, 4.37225, 0, 0)
 light_color = Color(1, 0.870588, 0.764706, 1)
 light_energy = 2.0
 light_angular_distance = 0.5
@@ -702,15 +865,6 @@ transform = Transform3D(0.0601601, 2.03268e-08, 0.998189, 8.60957e-08, -1, 1.517
 [node name="Player" parent="." instance=ExtResource("2_yonry")]
 transform = Transform3D(0.626073, 0, 0.779764, 0, 1, 0, -0.779764, 0, 0.626073, -0.344316, 0.954457, 5.2534)
 
-[node name="lights" type="Node3D" parent="."]
-visible = false
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="lights"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 4.39536, 3.09614, 3.73831)
-radius = 0.087
-height = 5.0
-material = SubResource("StandardMaterial3D_ea4pj")
-
 [node name="UI" parent="." instance=ExtResource("6_w7hbt")]
 
 [node name="light-fx" type="Node" parent="."]
@@ -732,11 +886,24 @@ libraries = {
 "": SubResource("AnimationLibrary_8exo4")
 }
 
-[node name="emergency" type="SpotLight3D" parent="light-fx"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.04955, 1.95417, -9.79014)
+[node name="emergency" type="Node3D" parent="light-fx"]
 visible = false
+
+[node name="emergency" type="SpotLight3D" parent="light-fx/emergency"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.757, 1.95417, -9.79014)
 light_color = Color(0, 0.313568, 1, 1)
 light_energy = 4.016
+light_indirect_energy = 0.246
+shadow_enabled = true
+spot_range = 21.979
+spot_attenuation = -1.0
+spot_angle = 29.92
+script = ExtResource("11_vr7wl")
+
+[node name="emergency2" type="SpotLight3D" parent="light-fx/emergency"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.41782, 1.95417, -9.79014)
+light_color = Color(0, 0.313568, 1, 1)
+light_energy = 0.0
 light_indirect_energy = 0.246
 shadow_enabled = true
 spot_range = 21.979
@@ -752,9 +919,11 @@ libraries = {
 speed_scale = 4.0
 
 [node name="streetlamp" type="SpotLight3D" parent="light-fx"]
-transform = Transform3D(1, 0, 0, 0, -0.816611, 0.577188, 0, -0.577188, -0.816611, 4.45757, 3.94569, -9.46907)
+transform = Transform3D(1, 0, 0, 0, -0.844861, 0.534987, 0, -0.534987, -0.844861, 4.45757, 3.94569, -10.8237)
 visible = false
 light_color = Color(1, 0.462465, 0.101257, 1)
+light_energy = 1.5
+shadow_enabled = true
 spot_range = 20.869
 spot_attenuation = 0.75
 spot_angle = 30.64
@@ -765,7 +934,7 @@ spot_angle = 30.64
 curve = SubResource("Curve3D_ihdax")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="light-fx/car/Path3D"]
-transform = Transform3D(-1, -1.00983e-11, 2.36221e-06, 0, 1.00011, 4.27447e-06, -2.36221e-06, 4.27494e-06, -1, 4.96216, 2.38829, -86.9303)
+transform = Transform3D(-1, -1.0099e-11, 2.36221e-06, 0, 1.00018, 4.27447e-06, -2.36221e-06, 4.27522e-06, -1, 4.96216, 2.38829, -86.9303)
 rotation_mode = 4
 
 [node name="car" type="Node3D" parent="light-fx/car/Path3D/PathFollow3D"]
@@ -775,23 +944,23 @@ visible = false
 [node name="headlight" type="SpotLight3D" parent="light-fx/car/Path3D/PathFollow3D/car"]
 transform = Transform3D(-1, -8.67362e-19, -1.50996e-07, -8.67362e-19, 1, -7.75569e-26, 1.50996e-07, 5.34111e-26, -1, 0.239669, 0, 0)
 light_color = Color(0.842971, 0.985054, 1, 1)
-light_energy = 5.0
+light_energy = 7.0
 light_indirect_energy = 1.754
 light_specular = 5.861
 shadow_enabled = true
 spot_range = 100.0
-spot_attenuation = 0.6
+spot_attenuation = 0.9
 spot_angle = 10.0
 
 [node name="headlight2" type="SpotLight3D" parent="light-fx/car/Path3D/PathFollow3D/car"]
 transform = Transform3D(-1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, -1.51, 0, 0)
 light_color = Color(0.842971, 0.985054, 1, 1)
-light_energy = 5.0
+light_energy = 7.0
 light_indirect_energy = 1.754
 light_specular = 5.861
 shadow_enabled = true
 spot_range = 100.0
-spot_attenuation = 0.6
+spot_attenuation = 0.9
 spot_angle = 10.0
 
 [node name="brakelight" type="SpotLight3D" parent="light-fx/car/Path3D/PathFollow3D/car"]
@@ -807,12 +976,47 @@ libraries = {
 "": SubResource("AnimationLibrary_g2wd2")
 }
 
+[node name="light" type="CSGCylinder3D" parent="light-fx"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 4.39536, 3.03222, 3.73831)
+gi_mode = 2
+radius = 0.087
+height = 5.0
+material = SubResource("StandardMaterial3D_ea4pj")
+
+[node name="backup" type="Node3D" parent="light-fx"]
+visible = false
+
+[node name="SpotLight3D" type="SpotLight3D" parent="light-fx/backup"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.30366, 3.39464, 3.39531)
+light_color = Color(1, 0.494052, 0.266249, 1)
+light_energy = 0.5
+light_volumetric_fog_energy = 5.0
+spot_range = 4.0
+spot_angle = 25.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="light-fx/backup"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.37498, 3.39464, 0.0306304)
+light_color = Color(1, 0.494052, 0.266249, 1)
+light_energy = 0.5
+light_volumetric_fog_energy = 5.0
+spot_range = 4.0
+spot_angle = 25.0
+
 [node name="explosion" type="SpotLight3D" parent="light-fx"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.68557, 2.69139, -10.4697)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.35936, 2.69139, -10.4697)
 visible = false
 light_energy = 10.0
-spot_range = 131.015
+light_indirect_energy = 2.0
+shadow_enabled = true
+spot_range = 22.107
 spot_attenuation = 0.02
+spot_angle = 14.55
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="light-fx/explosion"]
+libraries = {
+"": SubResource("AnimationLibrary_bx8pw")
+}
+speed_scale = 2.0
 
 [node name="fireworks" type="Node3D" parent="light-fx"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.16849, 2.90628, -12.6915)

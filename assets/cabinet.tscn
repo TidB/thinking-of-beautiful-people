@@ -1,10 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://cfuk10ug0ysds"]
 
-[ext_resource type="Material" uid="uid://b7eslv7tu1sx8" path="res://greenmetal.tres" id="1_pgubx"]
 [ext_resource type="Material" uid="uid://s4x5pbwl3487" path="res://metal.tres" id="2_6uhyf"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1qf78"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_cw0yu"]
-material = ExtResource("1_pgubx")
+material = SubResource("StandardMaterial3D_1qf78")
 size = Vector3(1.4, 2, 0.8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wb0g2"]

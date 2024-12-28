@@ -116,6 +116,11 @@ m They‘re everywhere
 s Fireworks…
 s NYE after all
 m No way those are just fireworks
+m I'm blocking the windows
+
+/ BLIND
+
+
 
 / FIRE
 
