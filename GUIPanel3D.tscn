@@ -11,6 +11,8 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ke87"]
 resource_local_to_scene = true
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.792157)
 emission_enabled = true
 emission_energy_multiplier = 0.45
 emission_texture = SubResource("ViewportTexture_jwihd")
@@ -28,6 +30,7 @@ size = Vector2i(1920, 1080)
 [node name="Idle" parent="SubViewport" instance=ExtResource("2_pxtyh")]
 
 [node name="Quad" type="MeshInstance3D" parent="."]
+gi_mode = 2
 mesh = SubResource("QuadMesh_ylnmc")
 surface_material_override/0 = SubResource("StandardMaterial3D_1ke87")
 

@@ -40,3 +40,9 @@ theme_override_font_sizes/normal_font_size = 196
 bbcode_enabled = true
 text = "[center]THANKS FOR PLAYING[/center]"
 scroll_active = false
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "i had absolutely no time to spare so sorry you gotta close this window yourself kthxbye"
+horizontal_alignment = 1

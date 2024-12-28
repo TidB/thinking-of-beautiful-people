@@ -2,6 +2,8 @@
 # a Alex
 # m Mitchell
 
+/ FLASHLIGHTS
+
 m Ah crap, so sorry!
 a Mitchell?!
 m Yeah sorry I’ll just.. try to get it out of the way…
@@ -48,6 +50,7 @@ a This job really helped me learn to distinguish between police and ambulance ca
 m Wouldn’t necessarily recommend putting that on your CV
 
 / PAUSE
+/ STOPSIREN
 
 s Still, always feels like they might be headed for our office
 m It’s fine
@@ -88,12 +91,15 @@ m Just hope they‘re on our side
 / LONGPAUSE
 / LONGPAUSE
 
-/ CAR
-
 m Can't wait for the new year honestly
 s I can
+
+/ CAR
+
 s This year was good, wasn't it?
 m Mmh
+s Still worried?
+m We need to be more cautious.
 a Is that guy driving straight towards us?
 m It's normal, isn't it? We're next to an intersection
 a … it‘s way too straight. And too fast

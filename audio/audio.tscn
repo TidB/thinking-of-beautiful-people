@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvtv8gwbn5svr"]
+
+[ext_resource type="Script" path="res://audio/audio.gd" id="1_3p3tg"]
+[ext_resource type="AudioStream" uid="uid://cs7ycb6oh5cn" path="res://audio/explosion.mp3" id="2_r7o1m"]
+[ext_resource type="AudioStream" uid="uid://c3jnrhodofbsx" path="res://audio/bg.mp3" id="3_2o867"]
+[ext_resource type="AudioStream" uid="uid://bvf8kgvluwvsf" path="res://audio/siren.mp3" id="4_sfwhf"]
+
+[node name="Audio" type="Node"]
+script = ExtResource("1_3p3tg")
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_r7o1m")
+
+[node name="Bg" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2o867")
+volume_db = -18.0
+
+[node name="Siren" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_sfwhf")

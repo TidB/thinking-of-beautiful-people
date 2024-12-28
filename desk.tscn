@@ -13,7 +13,7 @@ bottom_radius = 0.02
 height = 0.8
 
 [sub_resource type="BoxMesh" id="BoxMesh_agly6"]
-size = Vector3(0.07, 0.38, 0.66)
+size = Vector3(0.07, 0.38, 0.03)
 
 [node name="Desk" type="Node3D"]
 script = ExtResource("1_rchqe")
@@ -38,5 +38,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.300233, -0.418984, 0.6305)
 mesh = SubResource("CylinderMesh_qncf8")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16607, 0.319363, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16607, 0.213817, 0)
 mesh = SubResource("BoxMesh_agly6")

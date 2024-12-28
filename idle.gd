@@ -1,15 +1,19 @@
 extends Control
 
 signal start_main_dialogue
-const DIALOGUE_TRIGGER = 100
+const DIALOGUE_TRIGGER = 10#000
 var triggered = false
 
-var current_capacity = 100 #5
+var current_capacity = 5
+#var current_capacity = 100
 var current_charging_rate = 0
-var current_charge = 100#1
+#var current_charge = 100
+var current_charge = 1
 
 var charge_record = 0
 var backup_active = false
+
+var counter = 0
 
 class Item:
 	var label: String
@@ -41,25 +45,31 @@ class CapacityButton:
 
 var charging_buttons = [
 	ChargingButton.new(0, 1, 1, 0.5, "Manually insert a battery"),
-	ChargingButton.new(10, 5, 5, 2, "Hire someone to turn a crank"),
-	ChargingButton.new(50, 50, 15, 6, "Hire a hamster"),
-	ChargingButton.new(750, 750, 70, 15, "Tap a neighbor's wire"),
-	ChargingButton.new(3500, 3500, 250, 50, "Keep a pet thunderstorm"),
-	ChargingButton.new(25000, 25000, 1200, 100, "Build a Dyson Sphere (or multiple)"),
+	ChargingButton.new(10, 10, 5, 2, "Hire someone to turn a crank"),
+	ChargingButton.new(50, 150, 15, 5, "Hire a hamster"),
+	ChargingButton.new(750, 1750, 70, 12, "Tap a neighbor's wire"),
+	ChargingButton.new(3500, 50000, 250, 25, "Keep a pet thunderstorm"),
+	ChargingButton.new(25000, 1000000, 1200, 50, "Build a Dyson Sphere (or multiple)"),
 ]
 
 var capacity_buttons = [
 	CapacityButton.new(0, 2, 20, "Powerbank"),
 	CapacityButton.new(10, 5, 100, "Car Battery"),
-	CapacityButton.new(25, 25, 1000, "Flywheel"),
-	CapacityButton.new(100, 100, 25000, "Fuel Cell"),
-	CapacityButton.new(250, 250, 500000, "Pumped-Storage Power Plant"),
-	CapacityButton.new(250, 250, 10000000, "Use the Earth as a Flywheel"),
+	CapacityButton.new(50, 75, 1000, "Flywheel"),
+	CapacityButton.new(750, 1500, 25000, "Fuel Cell"),
+	CapacityButton.new(3500, 17500, 500000, "Pumped-Storage Power Plant"),
+	CapacityButton.new(25000, 120000, 10000000, "Use the Earth as a Flywheel"),
 ]
 
 var bought_chargers = {} # key: index of charging_buttons, value: amount bought
 var bought_capacity = {}
 var last_update_for_index = {}
+
+func exp_cost_capacity(index):
+	return capacity_buttons[index].base_cost * (1.5 ** bought_capacity[index])
+	
+func exp_cost_charge(index):
+	return charging_buttons[index].base_cost * (1.5 ** bought_chargers[index])
 
 func charge_rate():
 	var rate = 0
@@ -105,10 +115,19 @@ func _physics_process(delta: float) -> void:
 		$HBoxContainer/MarginContainer3/VBoxContainer/CapacityExceeded.visible = true
 	else:
 		$HBoxContainer/MarginContainer3/VBoxContainer/CapacityExceeded.visible = false
+	
+	if backup_active:
+		current_charge = max(0, current_charge - (20 * delta))
 	current_charge = min(current_capacity, current_charge)
-	$HBoxContainer/MarginContainer3/VBoxContainer/StoredCounter.text = "Stored Energy:\n%d J\nLasts for:\n%s" % [current_charge, to_time(current_charge)]
+	$HBoxContainer/MarginContainer3/VBoxContainer/StoredCounter.text = "Stored Energy:\n%.2f J\nLasts for:\n%s" % [current_charge, to_time(current_charge)]
 	charge_record = max(charge_record, current_charge)
 	# TODO: If the record changes a lot, generate buttons again!
+	
+	if counter > 1:
+		counter = 0
+		generate_buttons()
+	else:
+		counter += delta
 	
 	if current_charge > DIALOGUE_TRIGGER and not triggered:
 		triggered = true
@@ -126,47 +145,48 @@ func generate_buttons():
 	$HBoxContainer/MarginContainer/Charging/ChargingRate.text = "Charging Rate:\n" + str(charge_rate()) + " J/s"
 	var i = 0
 	for b in charging_buttons:
-		if current_charge * 2 < b.unlocked_after:
+		if charge_record * 2 < b.unlocked_after:
 			continue
 		var button = Button.new()
-		button.text = b.label + "\n(" + str(bought_chargers[i]) + "× " + str(b.charge_amount * b.charges_per_second) + " J/s; Cost: " + str(b.base_cost) + " J)"
+		button.text = b.label + "\n(" + str(bought_chargers[i]) + "× " + str(b.charge_amount * b.charges_per_second) + " J/s; Cost: %.2f J)" % exp_cost_charge(i)
 		button.pressed.connect(func(): self.buy_charger(i))
 		$HBoxContainer/MarginContainer/Charging.add_child(button)
 		i += 1
 
 	i = 0
 	for b in capacity_buttons:
-		if current_charge * 2 < b.unlocked_after:
+		if charge_record * 2 < b.unlocked_after:
 			continue
 		var button = Button.new()
-		button.text = b.label + "\n(" + str(bought_capacity[i]) + "× " + str(b.capacity) + " J; Cost: " + str(b.base_cost) + " J)"
+		button.text = b.label + "\n(" + str(bought_capacity[i]) + "× " + str(b.capacity) + " J; Cost: %.2f J)" % exp_cost_capacity(i)
 		button.pressed.connect(func(): self.buy_capacity(i))
 		$HBoxContainer/MarginContainer2/Capacity.add_child(button)
 		i += 1
 
 func buy_charger(index):
-	if current_charge < charging_buttons[index].base_cost:
+	if current_charge < exp_cost_charge(index):
+		generate_buttons()
 		return
 	
 	if index not in bought_chargers:
 		bought_chargers[index] = 0
+	current_charge -= exp_cost_charge(index)
 	bought_chargers[index] += 1
-	current_charge -= charging_buttons[index].base_cost
-	
-	
 	generate_buttons()
 
 func buy_capacity(index):
-	if current_charge < capacity_buttons[index].base_cost:
+	if current_charge < exp_cost_capacity(index):
+		generate_buttons()
 		return
 		
 	if index not in bought_capacity:
 		bought_capacity[index] = 0
+	current_charge -= exp_cost_capacity(index)
 	bought_capacity[index] += 1
-	current_charge -= capacity_buttons[index].base_cost
 	
 	current_capacity += capacity_buttons[index].capacity
 	$HBoxContainer/MarginContainer2/Capacity/CapacityCounter.text = "Maximum Capacity:\n" + str(current_capacity) + " J"
+	generate_buttons()
 
 func backup_mode(active):
 	if active:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://xe4dg2xf01ka"]
+[gd_scene load_steps=94 format=3 uid="uid://xe4dg2xf01ka"]
 
 [ext_resource type="VoxelGIData" uid="uid://cjjvmltub5a6q" path="res://office.VoxelGI_data.res" id="1_dof1c"]
 [ext_resource type="Script" path="res://office.gd" id="1_osxml"]
@@ -16,7 +16,6 @@
 [ext_resource type="SystemFont" uid="uid://dqy0idt4v0jj8" path="res://fonts/alex.tres" id="11_0qqgd"]
 [ext_resource type="Script" path="res://hop_over.gd" id="11_3se2u"]
 [ext_resource type="Script" path="res://light-emergency.gd" id="11_vr7wl"]
-[ext_resource type="VoxelGIData" uid="uid://b02fxqbm1h1ca" path="res://office.VoxelGIAfterDoor_data.res" id="12_4o1st"]
 [ext_resource type="Script" path="res://fireworks.gd" id="12_agqh3"]
 [ext_resource type="SystemFont" uid="uid://bipu736vhlcec" path="res://fonts/mitchell.tres" id="12_t2jcu"]
 [ext_resource type="Script" path="res://dialogue.gd" id="13_hxx81"]
@@ -43,7 +42,7 @@ bottom_radius = 0.02
 height = 0.8
 
 [sub_resource type="BoxMesh" id="BoxMesh_agly6"]
-size = Vector3(0.07, 0.38, 0.66)
+size = Vector3(0.07, 0.38, 0.07)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ul6uf"]
 size = Vector3(0.86, 1.1, 1)
@@ -774,11 +773,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.300233, -0.418984, 0.6305)
 mesh = SubResource("CylinderMesh_qncf8")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="RoomPlayer/Desk"]
-transform = Transform3D(0.990227, 0, -0.139467, 0, 1, 0, 0.139467, 0, 0.990227, -0.0263784, 0.319363, 0.143097)
+transform = Transform3D(0.990227, 0, -0.139467, 0, 1, 0, 0.139467, 0, 0.990227, -0.0263786, 0.208281, 0.143096)
 mesh = SubResource("BoxMesh_agly6")
 
-[node name="GuiPanel3d" parent="RoomPlayer/Desk/MeshInstance3D6" instance=ExtResource("10_fahc4")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.046721, 0, 0)
+[node name="GuiPanel3d" parent="RoomPlayer/Desk" instance=ExtResource("10_fahc4")]
+transform = Transform3D(-0.139467, 0, -0.990227, 0, 1, 0, 0.990227, 0, -0.139467, -0.0726428, 0.319363, 0.136581)
 
 [node name="Chair" parent="RoomPlayer" instance=ExtResource("5_unb5w")]
 transform = Transform3D(0.996538, 0, -0.0831387, 0, 1, 0, 0.0831387, 0, 0.996538, 1.30418, 0.485108, 4.4511)
@@ -918,13 +917,6 @@ subdiv = 2
 size = Vector3(21.835, 7.52, 18.885)
 data = ExtResource("1_dof1c")
 
-[node name="VoxelGIAfterDoor" type="VoxelGI" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835974, 0)
-visible = false
-subdiv = 2
-size = Vector3(21.835, 7.52, 18.885)
-data = ExtResource("12_4o1st")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_pbto2")
 
@@ -952,7 +944,6 @@ speed_scale = 0.01
 transform = Transform3D(0.626073, 0, 0.779764, 0, 1, 0, -0.779764, 0, 0.626073, -0.344316, 0.954457, 5.2534)
 
 [node name="UI" parent="." instance=ExtResource("6_w7hbt")]
-visible = false
 
 [node name="light-fx" type="Node" parent="."]
 
@@ -1032,7 +1023,7 @@ spot_angle = 30.64
 curve = SubResource("Curve3D_ihdax")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="light-fx/car/Path3D"]
-transform = Transform3D(-1, -1.00991e-11, 2.36221e-06, 0, 1.00019, 4.27447e-06, -2.36221e-06, 4.27528e-06, -1, 4.96216, 2.38829, -86.9303)
+transform = Transform3D(-1, -1.00996e-11, 2.36221e-06, 0, 1.00024, 4.27447e-06, -2.36221e-06, 4.27549e-06, -1, 4.96216, 2.38829, -86.9303)
 rotation_mode = 4
 
 [node name="car" type="Node3D" parent="light-fx/car/Path3D/PathFollow3D"]
@@ -1062,7 +1053,7 @@ spot_attenuation = 0.9
 spot_angle = 10.0
 
 [node name="brakelight" type="SpotLight3D" parent="light-fx/car/Path3D/PathFollow3D/car"]
-transform = Transform3D(-4.37114e-08, -7.10504e-15, 1, 7.10503e-15, 1, 7.10504e-15, -1, 7.10503e-15, -4.37114e-08, -0.0226336, 0, -0.521444)
+transform = Transform3D(-0.676002, 3.23278e-16, 0.7369, 7.26573e-15, 1, 6.22658e-15, -0.7369, 9.5633e-15, -0.676002, -0.022634, 0, -0.521439)
 light_color = Color(1, 0, 0.120101, 1)
 light_energy = 2.0
 spot_range = 30.0

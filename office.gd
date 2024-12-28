@@ -24,9 +24,9 @@ func _ready() -> void:
 
 	Global.connect("pause", self.pause_unpause)
 	$RoomPlayer/Chair/SitDown.close_door.connect(func(): $RoomPlayer/Node/AnimationPlayer.play("close"))
-	$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.start_main_dialogue.connect(self.start_main)
+	$RoomPlayer/Desk/GuiPanel3d/SubViewport/Idle.start_main_dialogue.connect(self.start_main)
 	$RoomPlayer/Bubbles.happening.connect(self.happening)
-	#switch_camera()
+	switch_camera()
 	#switch_final_camera()
 
 func pause_unpause(should_pause):
@@ -61,13 +61,16 @@ func happening(code):
 		$"light-fx/garbage/AnimationPlayer".play("garbage")
 		$"light-fx/garbage/AnimationPlayer2".play("move_garbage")
 		
-		$Sun/AnimationPlayer.animation_finished.connect(func(): $Sun.visible = false)
+		$Sun/AnimationPlayer.animation_finished.connect(func(name): $Sun.visible = false)
 		$Sun/AnimationPlayer.play("wander")
 	elif code == 'EMERGENCY':
 		$"light-fx/garbage".visible = false
 		$"light-fx/emergency".visible = true
 		$"light-fx/emergency/AnimationPlayer".play("strobe")
 		$"light-fx/emergency/AnimationPlayer2".play("move_emergency")
+		Audio.play_siren()
+	elif code == 'STOPSIREN':
+		Audio.stop_siren()
 	elif code == 'STREETLAMPS':
 		$"light-fx/emergency".visible = false
 		$"light-fx/streetlamp".visible = true
@@ -87,6 +90,7 @@ func happening(code):
 	elif code == 'EXPLOSION':
 		$"light-fx/explosion".visible = true
 		$"light-fx/explosion/AnimationPlayer".play("bang")
+		Audio.play_explosion()
 	elif code == 'FIREWORKS':
 		$"light-fx/explosion".visible = false
 		$"light-fx/fireworks".visible = true
@@ -112,7 +116,7 @@ func happening(code):
 		$"light-fx/flashlights".visible = false
 		$Sun.visible = true
 		$Sun/AnimationPlayer.play("rise")
-		$WorldEnvironment.environment.volumetric_fog_density = 0.1
+		$WorldEnvironment.environment.volumetric_fog_density = 0.07
 		$RoomPlayer/Bubbles/NormalBubbles/Alex.font_size = 52
 		$RoomPlayer/Node/cabinet_pivot/Cabinet2/StaticBody3D/CollisionShape3D.disabled = false
 	elif code == 'END':

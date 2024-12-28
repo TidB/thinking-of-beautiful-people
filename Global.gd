@@ -3,7 +3,7 @@ extends Node
 signal pause(should_pause)
 var is_paused = false
 
-var TEXT_SPEED = 0.7
+var TEXT_SPEED = 0.67
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
