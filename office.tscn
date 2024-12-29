@@ -907,7 +907,6 @@ width = 900.0
 
 [node name="cabinet_pivot" type="Node3D" parent="RoomPlayer/Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25557, 0.0121416, 0.745864)
-visible = false
 
 [node name="Cabinet2" parent="RoomPlayer/Node/cabinet_pivot" instance=ExtResource("10_u1fl4")]
 transform = Transform3D(-4.15258e-08, 0, -1, 0, 1, 0, 0.95, 0, -4.37114e-08, 0.0187206, 0.859866, -0.631636)
@@ -1051,7 +1050,6 @@ libraries = {
 
 [node name="streetlamp" type="SpotLight3D" parent="light-fx"]
 transform = Transform3D(1, 0, 0, 0, -0.844861, 0.534987, 0, -0.534987, -0.844861, 4.45757, 3.94569, -10.8237)
-visible = false
 light_color = Color(1, 0.462465, 0.101257, 1)
 light_energy = 3.0
 shadow_enabled = true
@@ -1109,6 +1107,7 @@ libraries = {
 
 [node name="light" type="CSGCylinder3D" parent="light-fx"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 4.39536, 3.03222, 3.73831)
+visible = false
 gi_mode = 2
 radius = 0.087
 height = 5.0

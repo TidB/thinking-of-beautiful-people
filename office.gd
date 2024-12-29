@@ -28,6 +28,10 @@ func _ready() -> void:
 	$RoomPlayer/Bubbles.happening.connect(self.happening)
 	#switch_camera()
 	#switch_final_camera()
+	$RoomPlayer/Desk/GuiPanel3d/SubViewport/Idle.backup_mode(true)
+	$Sun/AnimationPlayer.play("wander", -1, 0.0001, true)
+	$RoomPlayer/Node/AnimationPlayer.play("break")
+	
 
 func pause_unpause(should_pause):
 	if not should_pause:
@@ -86,7 +90,7 @@ func happening(code):
 		$"light-fx/streetlamp".visible = false
 	elif code == 'BACKUP':
 		$"light-fx/backup".visible = true
-		$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.backup_mode(true)
+		$RoomPlayer/Desk/GuiPanel3d/SubViewport/Idle.backup_mode(true)
 	elif code == 'EXPLOSION':
 		$"light-fx/explosion".visible = true
 		$"light-fx/explosion/AnimationPlayer".play("bang")
@@ -123,7 +127,7 @@ func happening(code):
 		$RoomPlayer/Node/cabinet_pivot/Cabinet2/StaticBody3D/CollisionShape3D.disabled = false
 	elif code == 'END':
 		$"light-fx/backup".visible = false
-		$RoomPlayer/Desk/MeshInstance3D6/GuiPanel3d/SubViewport/Idle.backup_mode(false)
+		$RoomPlayer/Desk/GuiPanel3d/SubViewport/Idle.backup_mode(false)
 		$RoomPlayer/Node/HopOver/CollisionShape3D.disabled = false
 		$Player.allow_interaction()
 	else:
